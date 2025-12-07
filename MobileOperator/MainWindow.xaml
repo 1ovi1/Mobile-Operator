@@ -4,9 +4,401 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MobileOperator"
+        xmlns:syncfusion="http://schemas.syncfusion.com/wpf"  
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="Мобильный оператор" Height="800" Width="900">
+    <Grid Background="#1A1A1A">
+        <Border VerticalAlignment="Top" Height="70">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                    <GradientStop Color="#FF8C00" Offset="0"/>
+                    <GradientStop Color="#FFA500" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <TextBlock Text="Сотовый оператор" 
+                       Foreground="#1A1A1A" 
+                       FontWeight="Bold" 
+                       FontSize="36" 
+                       VerticalAlignment="Center" 
+                       HorizontalAlignment="Center"/>
+        </Border>
 
+        <Grid Margin="0,70,0,0" VerticalAlignment="Top" Height="50">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Content="Мой кабинет" 
+            FontSize="18" 
+            Background="#FFA500" 
+            Foreground="#1A1A1A" 
+            FontWeight="Bold"
+            BorderThickness="0"
+            HorizontalAlignment="Stretch" 
+            VerticalAlignment="Stretch" 
+            Grid.Column="0"/>
+
+            <Button Click="OpenServices_Click" 
+            Content="Услуги" 
+            FontSize="18" 
+            Background="#2A2A2A" 
+            Foreground="#FFA500" 
+            BorderBrush="#FF8C00"
+            BorderThickness="1"
+            HorizontalAlignment="Stretch" 
+            VerticalAlignment="Stretch" 
+            Grid.Column="1"/>
+
+            <Button Click="OpenRates_Click" 
+            Content="Тарифы" 
+            FontSize="18" 
+            Background="#2A2A2A" 
+            Foreground="#FFA500" 
+            BorderBrush="#FF8C00"
+            BorderThickness="1"
+            HorizontalAlignment="Stretch" 
+            VerticalAlignment="Stretch" 
+            Grid.Column="2"/>
+
+            <Button Click="OpenDetailing_Click" 
+            Content="Звонки" 
+            FontSize="18" 
+            Background="#2A2A2A" 
+            Foreground="#FFA500" 
+            BorderBrush="#FF8C00"
+            BorderThickness="1"
+            HorizontalAlignment="Stretch" 
+            VerticalAlignment="Stretch" 
+            Grid.Column="3"/>
+
+            <Button Click="OpenDetailing2_Click" 
+            Content="Тарифы и услуги" 
+            FontSize="18" 
+            Background="#2A2A2A" 
+            Foreground="#FFA500" 
+            BorderBrush="#FF8C00"
+            BorderThickness="1"
+            HorizontalAlignment="Stretch" 
+            VerticalAlignment="Stretch" 
+            Grid.Column="4"/>
+        </Grid>
+
+        <Border Background="#2A2A2A" 
+                BorderBrush="#FF8C00" 
+                BorderThickness="2" 
+                CornerRadius="10" 
+                Margin="15,135,15,0" 
+                VerticalAlignment="Top" 
+                Height="60">
+            <Grid Margin="20,0">
+                <TextBlock VerticalAlignment="Center" 
+                           HorizontalAlignment="Left" 
+                           FontSize="18" 
+                           Foreground="#FFD700">
+                    <Run Text="Авторизация: " FontWeight="Bold"/>
+                    <Run Text="{Binding Path=ClientName}" Foreground="#FFA500"/>
+                    <Run Text=" — тел. " FontWeight="Bold"/>
+                    <Run Text="{Binding Path=ClientNumber}" Foreground="#FFA500"/>
+                </TextBlock>
+
+                <Button Command="{Binding LogOutCommand}" 
+                        Content="Выйти"
+                        Foreground="#1A1A1A" 
+                        Background="#FFD700" 
+                        FontSize="16" 
+                        FontWeight="Bold"
+                        Width="120" 
+                        Height="36" 
+                        BorderThickness="0"
+                        VerticalAlignment="Center" 
+                        HorizontalAlignment="Right"
+                        Click="Logout_Click"/>
+            </Grid>
+        </Border>
+
+        <Grid Margin="15,210,15,15">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1.5*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+
+            <Border Background="#2A2A2A" 
+                    BorderBrush="#FF8C00" 
+                    BorderThickness="2" 
+                    CornerRadius="15" 
+                    Padding="20" 
+                    Margin="0,0,10,0" 
+                    Grid.Column="0" 
+                    Grid.Row="0">
+                <StackPanel>
+                    <TextBlock Text="Мой тариф:" 
+                               TextAlignment="Center" 
+                               FontSize="26" 
+                               Foreground="#FFD700" 
+                               FontWeight="Bold"
+                               Margin="0,0,0,10"/>
+
+                    <TextBlock Text="{Binding Path=Rate}" 
+                               TextAlignment="Center" 
+                               FontSize="28" 
+                               Foreground="#FFA500" 
+                               FontWeight="Bold"
+                               Margin="0,0,0,10"/>
+
+                    <TextBlock Text="{Binding Path=Corporate}" 
+                               TextAlignment="Center" 
+                               FontSize="18" 
+                               Foreground="#FF8C00"
+                               Margin="0,0,0,15"/>
+
+                    <Separator Background="#FF8C00" Margin="0,10"/>
+
+                    <TextBlock Text="Ежемесячная плата:" 
+                               TextAlignment="Center" 
+                               FontSize="18" 
+                               Foreground="#FFD700"
+                               Margin="0,10,0,5"/>
+
+                    <TextBlock TextAlignment="Center" 
+                               FontSize="32" 
+                               Foreground="#FFA500" 
+                               FontWeight="Bold">
+                        <Run Text="{Binding Path=Cost}"/>
+                        <Run Text=" ₽"/>
+                    </TextBlock>
+                </StackPanel>
+            </Border>
+
+            <Border Background="#2A2A2A" 
+                    BorderBrush="#FF8C00" 
+                    BorderThickness="2" 
+                    CornerRadius="15" 
+                    Padding="25" 
+                    Margin="10,0,0,0" 
+                    Grid.Column="1" 
+                    Grid.Row="0">
+                <StackPanel>
+                    <TextBlock Text="Мой баланс:" 
+                               FontSize="26" 
+                               Foreground="#FFD700" 
+                               FontWeight="Bold"
+                               TextAlignment="Center"
+                               Margin="0,0,0,10"/>
+
+                    <TextBlock TextAlignment="Center" 
+                               FontSize="40" 
+                               Foreground="#FFA500" 
+                               FontWeight="Bold"
+                               Margin="0,0,0,20">
+                        <Run Text="{Binding Balance}"/>
+                        <Run Text=" ₽"/>
+                    </TextBlock>
+
+                    <Separator Background="#FF8C00" Margin="0,0,0,15"/>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="Пополнить:" 
+                                   VerticalAlignment="Center" 
+                                   FontSize="18" 
+                                   Foreground="#FFD700"
+                                   Margin="0,0,10,0"
+                                   Grid.Column="0"/>
+
+                        <syncfusion:UpDown Value="{Binding Amount}" 
+                                          FontSize="18" 
+                                          Background="#1A1A1A"
+                                          Foreground="#FFA500"
+                                          BorderBrush="#FF8C00"
+                                          Margin="0,0,5,0"
+                                          Grid.Column="1"/>
+
+                        <TextBlock Text="₽" 
+                                   FontSize="18" 
+                                   Foreground="#FFD700"
+                                   VerticalAlignment="Center" 
+                                   Margin="0,0,10,0"
+                                   Grid.Column="2"/>
+
+                        <Button Command="{Binding PayCommand}" 
+                                Content="Оплатить"
+                                Foreground="#1A1A1A" 
+                                Background="#FFD700" 
+                                FontSize="16" 
+                                FontWeight="Bold"
+                                Height="36" 
+                                Width="110"
+                                BorderThickness="0"
+                                Grid.Column="3"/>
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <Border Background="#2A2A2A" 
+                    BorderBrush="#FF8C00" 
+                    BorderThickness="2" 
+                    CornerRadius="15" 
+                    Padding="20" 
+                    Margin="0,15,10,0" 
+                    Grid.Row="1" 
+                    Grid.Column="0">
+                <StackPanel>
+                    <TextBlock Text="Подключенные услуги:" 
+                               TextAlignment="Center" 
+                               FontSize="22" 
+                               Foreground="#FFD700" 
+                               FontWeight="Bold"
+                               Margin="0,0,0,15"/>
+
+                    <ListBox ItemsSource="{Binding Services}" 
+                             Background="#1A1A1A" 
+                             BorderBrush="#FF8C00" 
+                             BorderThickness="1">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Border Background="#2A2A2A" 
+                                        BorderBrush="#FF8C00" 
+                                        BorderThickness="1" 
+                                        CornerRadius="5" 
+                                        Padding="10" 
+                                        Margin="5">
+                                    <TextBlock Text="{Binding Path=Name}" 
+                                               FontSize="18" 
+                                               Foreground="#FFA500"/>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </StackPanel>
+            </Border>
+
+            <Border Background="#2A2A2A" 
+                    BorderBrush="#FF8C00" 
+                    BorderThickness="2" 
+                    CornerRadius="15" 
+                    Padding="25" 
+                    Margin="10,15,0,0" 
+                    Grid.Row="1" 
+                    Grid.Column="1">
+                <StackPanel>
+                    <TextBlock Text="Осталось:" 
+                               TextAlignment="Center" 
+                               FontSize="26" 
+                               Foreground="#FFD700" 
+                               FontWeight="Bold"
+                               Margin="0,0,0,20"/>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <Border Background="#1A1A1A" 
+                                BorderBrush="#FF8C00" 
+                                BorderThickness="1" 
+                                CornerRadius="8" 
+                                Padding="15,10" 
+                                Margin="0,0,10,10"
+                                Grid.Row="0" 
+                                Grid.Column="0">
+                            <TextBlock Text="Интернет" 
+                                       FontSize="20" 
+                                       Foreground="#FFD700" 
+                                       VerticalAlignment="Center"/>
+                        </Border>
+                        <TextBlock Grid.Row="0" 
+                                   Grid.Column="1" 
+                                   FontSize="32" 
+                                   Foreground="#FFA500" 
+                                   FontWeight="Bold"
+                                   VerticalAlignment="Center"
+                                   Margin="0,0,0,10">
+                            <Run Text="{Binding Path=GB}"/>
+                            <Run Text=" ГБ" FontSize="24"/>
+                        </TextBlock>
+
+                        <Border Background="#1A1A1A" 
+                                BorderBrush="#FF8C00" 
+                                BorderThickness="1" 
+                                CornerRadius="8" 
+                                Padding="15,10" 
+                                Margin="0,0,10,10"
+                                Grid.Row="1" 
+                                Grid.Column="0">
+                            <TextBlock Text="Минуты" 
+                                       FontSize="20" 
+                                       Foreground="#FFD700" 
+                                       VerticalAlignment="Center"/>
+                        </Border>
+                        <TextBlock Grid.Row="1" 
+                                   Grid.Column="1" 
+                                   FontSize="32" 
+                                   Foreground="#FFA500" 
+                                   FontWeight="Bold"
+                                   VerticalAlignment="Center"
+                                   Margin="0,0,0,10">
+                            <Run Text="{Binding Path=Minutes}"/>
+                            <Run Text=" мин." FontSize="24"/>
+                        </TextBlock>
+
+                        <Border Background="#1A1A1A" 
+                                BorderBrush="#FF8C00" 
+                                BorderThickness="1" 
+                                CornerRadius="8" 
+                                Padding="15,10" 
+                                Margin="0,0,10,0"
+                                Grid.Row="2" 
+                                Grid.Column="0">
+                            <TextBlock Text="СМС" 
+                                       FontSize="20" 
+                                       Foreground="#FFD700" 
+                                       VerticalAlignment="Center"/>
+                        </Border>
+                        <TextBlock Grid.Row="2" 
+                                   Grid.Column="1" 
+                                   FontSize="32" 
+                                   Foreground="#FFA500" 
+                                   FontWeight="Bold"
+                                   VerticalAlignment="Center">
+                            <Run Text="{Binding Path=SMS}"/>
+                            <Run Text=" смс" FontSize="24"/>
+                        </TextBlock>
+                    </Grid>
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <Button Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Margin="0,0,30,30"
+                Width="60"
+                Height="60"
+                Background="#FFD700"
+                BorderBrush="#FFD700"
+                Click="CallButton_Click">
+            <materialDesign:PackIcon Kind="Phone" Height="30" Width="30" Foreground="#1A1A1A" />
+        </Button>
     </Grid>
 </Window>

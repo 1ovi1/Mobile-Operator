@@ -8,4 +8,18 @@
         <UseWPF>true</UseWPF>
     </PropertyGroup>
 
+    <ItemGroup>
+      <Folder Include="views\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Expression.Blend.Sdk" Version="1.0.2" />
+      <PackageReference Include="MaterialDesignColors" Version="5.3.0" />
+      <PackageReference Include="MaterialDesignThemes" Version="5.3.0" />
+      <PackageReference Include="Microsoft.Office.Interop.Excel" Version="15.0.4795.1000" />
+      <PackageReference Include="Microsoft.Office.Interop.Word" Version="15.0.4797.1003" />
+      <PackageReference Include="Syncfusion.Shared.WPF" Version="31.2.5" />
+      <PackageReference Include="System.Windows.Interactivity.WPF" Version="2.0.20525" />
+    </ItemGroup>
+
 </Project>

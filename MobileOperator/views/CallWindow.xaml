@@ -1,0 +1,42 @@
+﻿<Window x:Class="MobileOperator.pages.CallWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MobileOperator.pages"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="Звонок" Height="600" Width="400"
+        WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
+        Background="#1A1A1A">
+    <Grid>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock Text="Звонок..."
+                       FontSize="24"
+                       Foreground="#FFD700"
+                       HorizontalAlignment="Center"/>
+            <TextBlock Text="+7 (999) 123-45-67"
+                       FontSize="36"
+                       Foreground="#FFA500"
+                       FontWeight="Bold"
+                       HorizontalAlignment="Center"
+                       Margin="0,10,0,0"/>
+            <TextBlock Text="00:15"
+                       FontSize="20"
+                       Foreground="#FFD700"
+                       HorizontalAlignment="Center"
+                       Margin="0,20,0,0"/>
+        </StackPanel>
+
+        <Button Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+                VerticalAlignment="Bottom"
+                HorizontalAlignment="Center"
+                Margin="0,0,0,40"
+                Width="70" Height="70"
+                Background="#F44336"
+                BorderBrush="#F44336"
+                Click="EndCallButton_Click">
+            <materialDesign:PackIcon Kind="PhoneHangup" Height="35" Width="35" />
+        </Button>
+    </Grid>
+</Window>

@@ -1,0 +1,182 @@
+﻿<Window x:Class="MobileOperator.SelectesRateWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:local="clr-namespace:MobileOperator"
+        mc:Ignorable="d"
+        Title="Мобильный оператор" Height="800" Width="900">
+    <Grid Background="#1A1A1A">
+        <!-- Шапка -->
+        <Border VerticalAlignment="Top" Height="70">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                    <GradientStop Color="#FF8C00" Offset="0"/>
+                    <GradientStop Color="#FFA500" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <TextBlock Text="Просмотр тарифа" 
+                       Foreground="#1A1A1A" 
+                       FontWeight="Bold" 
+                       FontSize="36" 
+                       VerticalAlignment="Center" 
+                       HorizontalAlignment="Center"/>
+        </Border>
+
+        <!-- Навигационное меню -->
+        <Grid Margin="0,70,0,0" VerticalAlignment="Top" Height="50">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Command="{Binding OpenMainWindow}" 
+                    Content="Мой кабинет" 
+                    FontSize="18" 
+                    Background="#2A2A2A" 
+                    Foreground="#FFA500" 
+                    BorderBrush="#FF8C00"
+                    BorderThickness="1"
+                    Grid.Column="0"/>
+
+            <Button Command="{Binding OpenServices}" 
+                    Content="Услуги" 
+                    FontSize="18" 
+                    Background="#2A2A2A" 
+                    Foreground="#FFA500" 
+                    BorderBrush="#FF8C00"
+                    BorderThickness="1"
+                    Grid.Column="1"/>
+
+            <Button Command="{Binding OpenRates}" 
+                    Content="Тарифы" 
+                    FontSize="18" 
+                    Background="#2A2A2A" 
+                    Foreground="#FFA500" 
+                    BorderBrush="#FF8C00"
+                    BorderThickness="1"
+                    Grid.Column="2"/>
+
+            <Button Command="{Binding OpenDetailing}" 
+                    Content="Звонки" 
+                    FontSize="18" 
+                    Background="#2A2A2A" 
+                    Foreground="#FFA500" 
+                    BorderBrush="#FF8C00"
+                    BorderThickness="1"
+                    Grid.Column="3"/>
+
+            <Button Command="{Binding OpenDetailing2}" 
+                    Content="Тарифы и услуги" 
+                    FontSize="18" 
+                    Background="#2A2A2A" 
+                    Foreground="#FFA500" 
+                    BorderBrush="#FF8C00"
+                    BorderThickness="1"
+                    Grid.Column="4"/>
+        </Grid>
+
+        <!-- Основной контент -->
+        <Border Background="#2A2A2A" 
+                BorderBrush="#FF8C00" 
+                BorderThickness="2" 
+                CornerRadius="15" 
+                Padding="40" 
+                Margin="80,150,80,80"
+                VerticalAlignment="Stretch">
+            <StackPanel>
+                <!-- Название тарифа -->
+                <TextBlock Text="{Binding Rate}" 
+                           TextAlignment="Center" 
+                           FontSize="32" 
+                           Foreground="#FFA500" 
+                           FontWeight="Bold"
+                           Margin="0,0,0,30"/>
+
+                <!-- Информация о тарифе -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Левая колонка -->
+                    <StackPanel Grid.Column="0" Margin="0,0,20,0">
+                        <TextBlock FontSize="18" Foreground="#FFD700" Margin="0,0,0,12">
+                            <Run Text="Минуты в месяц: "/>
+                            <Run Text="{Binding Minutes}" Foreground="#FFA500" FontWeight="Bold"/>
+                            <Run Text=" шт."/>
+                        </TextBlock>
+                        <TextBlock FontSize="18" Foreground="#FFD700" Margin="0,0,0,12">
+                            <Run Text="ГБ в месяц: "/>
+                            <Run Text="{Binding GB}" Foreground="#FFA500" FontWeight="Bold"/>
+                            <Run Text=" шт."/>
+                        </TextBlock>
+                        <TextBlock FontSize="18" Foreground="#FFD700" Margin="0,0,0,12">
+                            <Run Text="СМС в месяц: "/>
+                            <Run Text="{Binding SMS}" Foreground="#FFA500" FontWeight="Bold"/>
+                            <Run Text=" шт."/>
+                        </TextBlock>
+                        <TextBlock FontSize="18" Foreground="#FFD700" Margin="0,0,0,12">
+                            <Run Text="Ежемесячное списание: "/>
+                            <Run Text="{Binding Cost}" Foreground="#FFA500" FontWeight="Bold"/>
+                            <Run Text=" ₽"/>
+                        </TextBlock>
+                        <TextBlock FontSize="18" Foreground="#FFD700" Margin="0,0,0,12">
+                            <Run Text="Стоимость подключения: "/>
+                            <Run Text="{Binding ConnectionCost}" Foreground="#FFA500" FontWeight="Bold"/>
+                            <Run Text=" ₽"/>
+                        </TextBlock>
+                    </StackPanel>
+
+                    <!-- Правая колонка -->
+                    <StackPanel Grid.Column="1" Margin="20,0,0,0">
+                        <TextBlock FontSize="18" Foreground="#FFD700" Margin="0,0,0,12">
+                            <Run Text="Минута по городу: "/>
+                            <Run Text="{Binding CityCost}" Foreground="#FFA500" FontWeight="Bold"/>
+                            <Run Text=" ₽"/>
+                        </TextBlock>
+                        <TextBlock FontSize="18" Foreground="#FFD700" Margin="0,0,0,12">
+                            <Run Text="Минута по межгороду: "/>
+                            <Run Text="{Binding IntercityCost}" Foreground="#FFA500" FontWeight="Bold"/>
+                            <Run Text=" ₽"/>
+                        </TextBlock>
+                        <TextBlock FontSize="18" Foreground="#FFD700" Margin="0,0,0,12">
+                            <Run Text="Международная минута: "/>
+                            <Run Text="{Binding InternationalCost}" Foreground="#FFA500" FontWeight="Bold"/>
+                            <Run Text=" ₽"/>
+                        </TextBlock>
+                        <TextBlock FontSize="18" Foreground="#FFD700" Margin="0,0,0,12">
+                            <Run Text="СМС вне пакета: "/>
+                            <Run Text="{Binding SMSCost}" Foreground="#FFA500" FontWeight="Bold"/>
+                            <Run Text=" ₽"/>
+                        </TextBlock>
+                        <TextBlock FontSize="18" Foreground="#FFD700" Margin="0,0,0,12">
+                            <Run Text="ГБ вне пакета: "/>
+                            <Run Text="{Binding GBCost}" Foreground="#FFA500" FontWeight="Bold"/>
+                            <Run Text=" ₽"/>
+                        </TextBlock>
+                    </StackPanel>
+                </Grid>
+
+                <!-- Кнопка перехода на тариф -->
+                <Button Command="{Binding ChangeRateCommand}" 
+                        Content="Перейти на этот тариф!"
+                        Foreground="#1A1A1A" 
+                        Background="#FFD700" 
+                        FontSize="18" 
+                        FontWeight="Bold"
+                        Height="50"
+                        Width="320"
+                        BorderThickness="0"
+                        HorizontalAlignment="Center"
+                        Margin="0,30,0,0"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>
