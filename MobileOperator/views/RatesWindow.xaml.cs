@@ -12,23 +12,27 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using MobileOperator.viewmodels;
 
 namespace MobileOperator
 {
     /// <summary>
     /// Логика взаимодействия для RatesWindow.xaml
     /// </summary>
-    public partial class RatesWindow : Window
+    public partial class RatesWindow : Page
     {
-        private int userId = 0;
+        private int userId;
+        private int status;
         public RatesWindow(int userId, int status)
         {
             InitializeComponent();
+            this.userId = userId;
+            this.status = status;
+            DataContext = new RatesViewModel(userId, status);
         }
 
         private void ChangeRateButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
             ChangeRateWindow changeRateWindow = new ChangeRateWindow(userId);
             changeRateWindow.Show();
         }

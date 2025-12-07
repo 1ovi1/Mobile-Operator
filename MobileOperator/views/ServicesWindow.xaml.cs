@@ -11,17 +11,19 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using MobileOperator.viewmodels;
 
 namespace MobileOperator
 {
     /// <summary>
     /// Логика взаимодействия для ServicesWindow.xaml
     /// </summary>
-    public partial class ServicesWindow : Window
+    public partial class ServicesWindow : Page
     {
         public ServicesWindow(int userId, int status)
         {
             InitializeComponent();
+            DataContext = new ServicesViewModel(userId, status);
         }
     }
 }

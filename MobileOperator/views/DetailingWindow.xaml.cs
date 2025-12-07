@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using MobileOperator.viewmodels;
 
 
 namespace MobileOperator
@@ -18,11 +19,12 @@ namespace MobileOperator
     /// <summary>
     /// Логика взаимодействия для DetailingWindow.xaml
     /// </summary>
-    public partial class DetailingWindow : Window
+    public partial class DetailingWindow : Page
     {
         public DetailingWindow(int userId, int status)
         {
             InitializeComponent();
+            DataContext = new DetailingViewModel(userId, status);
         }
     }
 }
