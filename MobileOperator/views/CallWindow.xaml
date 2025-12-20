@@ -10,17 +10,17 @@
         Background="#1A1A1A">
     <Grid>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBlock Text="Звонок..."
+            <TextBlock Text="{Binding CallStatus}"
                        FontSize="24"
                        Foreground="#FFD700"
                        HorizontalAlignment="Center"/>
-            <TextBlock Text="+7 (999) 123-45-67"
+            <TextBlock Text="{Binding PhoneNumber}"
                        FontSize="36"
                        Foreground="#FFA500"
                        FontWeight="Bold"
                        HorizontalAlignment="Center"
                        Margin="0,10,0,0"/>
-            <TextBlock Text="00:15"
+            <TextBlock Text="{Binding CallDuration}"
                        FontSize="20"
                        Foreground="#FFD700"
                        HorizontalAlignment="Center"
@@ -34,7 +34,7 @@
                 Width="70" Height="70"
                 Background="#F44336"
                 BorderBrush="#F44336"
-                Click="EndCallButton_Click">
+                Command="{Binding EndCallCommand}">
             <materialDesign:PackIcon Kind="PhoneHangup" Height="35" Width="35" />
         </Button>
     </Grid>

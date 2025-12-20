@@ -208,11 +208,6 @@ namespace MobileOperator.viewmodels
             }
         }
 
-        public RelayCommand OpenRates => new RelayCommand(obj => { });
-        public RelayCommand OpenServices => new RelayCommand(obj => { });
-        public RelayCommand OpenMainWindow => new RelayCommand(obj => { });
-        public RelayCommand OpenDetailing2 => new RelayCommand(obj => { });
-
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {

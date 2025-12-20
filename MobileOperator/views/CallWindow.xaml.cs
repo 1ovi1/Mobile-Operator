@@ -2,19 +2,14 @@
 
 namespace MobileOperator.views
 {
-    /// <summary>
-    /// Логика взаимодействия для CallWindow.xaml
-    /// </summary>
     public partial class CallWindow : Window
     {
-        public CallWindow()
+        public CallWindow(int userId, string phoneNumber)
         {
             InitializeComponent();
+            var viewModel = new viewmodels.CallViewModel(userId, phoneNumber);
+            viewModel.CloseRequested += () => Close();
+            DataContext = viewModel;
         }
-        private void EndCallButton_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
     }
 }

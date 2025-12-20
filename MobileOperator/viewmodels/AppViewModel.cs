@@ -10,6 +10,7 @@ namespace MobileOperator.viewmodels
     class AppViewModel : INotifyPropertyChanged
     {
         public static event Action BalanceUpdated;
+        public event Action OpenDialerRequested;
 
         public static void UpdateBalance()
         {
@@ -56,19 +57,29 @@ namespace MobileOperator.viewmodels
                 {
                     var dbData = ctx.Client
                         .Where(c => c.UserId == userId)
-                        .Select(c => new { c.Balance, c.RateId })
+                        .Select(c => new { c.Balance, c.RateId, c.Minutes, c.SMS, c.GB })
                         .FirstOrDefault();
 
                     if (dbData != null)
                     {
+
                         client.Balance = (decimal)dbData.Balance;
                         OnPropertyChanged("Balance");
+                        
+                        client.Minutes = dbData.Minutes;
+                        OnPropertyChanged("Minutes");
+
+                        client.SMS = dbData.SMS ?? 0;
+                        OnPropertyChanged("SMS");
+
+                        client.GB = dbData.GB ?? 0;
+                        OnPropertyChanged("GB");
                         
                         if (client.RateId != dbData.RateId)
                         {
                             client.RateId = (int)dbData.RateId;
                             rate = new RateModel(client.RateId, ctx);
-                            
+
                             OnPropertyChanged("Rate");
                             OnPropertyChanged("Cost");
                             OnPropertyChanged("Corporate");
@@ -80,6 +91,7 @@ namespace MobileOperator.viewmodels
             }
             catch { }
         }
+
 
         private void RefreshServices(Infrastructure.MobileOperator ctx)
         {
@@ -204,6 +216,19 @@ namespace MobileOperator.viewmodels
                       Amount = 0.00m;
                       OnPropertyChanged("Amount");
                   }));
+            }
+        }
+        
+        private RelayCommand openDialerCommand;
+        public RelayCommand OpenDialerCommand
+        {
+            get
+            {
+                return openDialerCommand ??
+                       (openDialerCommand = new RelayCommand(obj =>
+                       {
+                           OpenDialerRequested?.Invoke();
+                       }));
             }
         }
 
