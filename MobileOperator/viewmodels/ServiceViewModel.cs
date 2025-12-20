@@ -90,13 +90,27 @@ namespace MobileOperator.viewmodels
                       if (idService != null)
                       {
                           ServiceModel selelectService = new ServiceModel((int)idService, _context);
+                          decimal totalCost = selelectService.Cost + selelectService.ConnectionCost;
 
-                          if (client.Balance < selelectService.ConnectionCost + selelectService.Cost)
+                          if (client.Balance < totalCost)
                               MessageBox.Show("На вашем счету недостаточно средств для подключения услуги!");
                           else
                           {
-                              client.Balance -= (selelectService.Cost + selelectService.ConnectionCost);
+                              client.Balance -= totalCost;
                               
+                              if (totalCost > 0)
+                              {
+                                  var writeOff = new MobileOperator.Domain.Entities.WriteOff
+                                  {
+                                      ClientId = clientDb.UserId,
+                                      Amount = totalCost,
+                                      WriteOffDate = System.DateTime.UtcNow,
+                                      Category = "Услуга",
+                                      Description = $"Подключение услуги '{selelectService.Name}'"
+                                  };
+                                  _context.WriteOff.Add(writeOff);
+                              }
+
                               if (selelectService.ConnectService(clientDb.UserId))
                               {
                                   servicesList.ConnectionServices.Add(this);

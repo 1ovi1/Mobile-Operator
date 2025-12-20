@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using MobileOperator.models;
@@ -84,6 +85,23 @@ namespace MobileOperator.viewmodels
                         {
                             client.Balance -= totalCost;
                             
+                            if (totalCost > 0)
+                            {
+                                var clientEntity = _context.Client.FirstOrDefault(c => c.UserId == userId);
+                                if (clientEntity != null)
+                                {
+                                    var writeOff = new MobileOperator.Domain.Entities.WriteOff
+                                    {
+                                        ClientId = clientEntity.UserId,
+                                        Amount = totalCost,
+                                        WriteOffDate = DateTime.UtcNow,
+                                        Category = "Смена тарифа",
+                                        Description = $"Подключение тарифа '{rateVm.Name}'"
+                                    };
+                                    _context.WriteOff.Add(writeOff);
+                                }
+                            }
+
                             if (client.ChangeRate(rateVm.Id))
                             {
                                 MessageBox.Show("Тариф успешно изменен!");

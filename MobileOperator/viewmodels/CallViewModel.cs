@@ -90,7 +90,7 @@ public class CallViewModel : INotifyPropertyChanged
         AppViewModel.UpdateBalance();
     }
 
-        private void ProcessCallData()
+    private void ProcessCallData()
     {
         try
         {
@@ -137,6 +137,19 @@ public class CallViewModel : INotifyPropertyChanged
                         client.Balance = currentBalance - callCost;
                     }
                     
+                    if (callCost > 0)
+                    {
+                        var writeOff = new MobileOperator.Domain.Entities.WriteOff
+                        {
+                            ClientId = client.UserId,
+                            Amount = callCost,
+                            WriteOffDate = DateTime.UtcNow,
+                            Category = "Звонок",
+                            Description = $"Исходящий звонок на {PhoneNumber}. Длительность: {_elapsedTime:mm\\:ss}"
+                        };
+                        context.WriteOff.Add(writeOff);
+                    }
+
                     var newCall = new MobileOperator.Domain.Entities.Call
                     {
                         CallerId = client.UserId,

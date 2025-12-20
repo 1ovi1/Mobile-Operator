@@ -18,7 +18,7 @@
             </Grid.RowDefinitions>
 
             <!-- Заголовок -->
-            <TextBlock Text="Получите распечатку звонков за выбранный период" 
+            <TextBlock Text="История звонков" 
                        TextAlignment="Center" 
                        FontSize="24" 
                        Foreground="#FFD700"

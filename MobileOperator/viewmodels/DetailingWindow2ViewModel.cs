@@ -98,7 +98,7 @@ namespace MobileOperator.viewmodels
                           workSheet.Columns.ColumnWidth = 25;
 
                           workSheet.Cells[1, 1] = "История тарифов и услуг";
-                          workSheet.Cells[2, 1] = $"ID Клиента: {userId}";
+                          workSheet.Cells[2, 1] = $"Клиент: {client.Number}"; 
                           workSheet.Cells[3, 1] = $"Период: {from:dd.MM.yyyy} - {till:dd.MM.yyyy}";
 
                           int startRow = 5;
@@ -161,7 +161,7 @@ namespace MobileOperator.viewmodels
                           Word.Document document = application.ActiveDocument;
 
                           Word.Paragraph headerPara = document.Content.Paragraphs.Add(ref missing);
-                          headerPara.Range.Text = $"История операций\nID Клиента: {userId}\nПериод: {from:dd.MM.yyyy} - {till:dd.MM.yyyy}\n";
+                          headerPara.Range.Text = $"История операций\nКлиент: {client.Number}\nПериод: {from:dd.MM.yyyy} - {till:dd.MM.yyyy}\n";
                           headerPara.Range.InsertParagraphAfter();
 
                           Word.Range range = document.Range();

@@ -18,7 +18,7 @@
             </Grid.RowDefinitions>
 
             <!-- Заголовок -->
-            <TextBlock Text="Получите историю тарифов и услуг за выбранный период" 
+            <TextBlock Text="История подключений тарифов и услуг" 
                        TextAlignment="Center" 
                        FontSize="24" 
                        Foreground="#FFD700"

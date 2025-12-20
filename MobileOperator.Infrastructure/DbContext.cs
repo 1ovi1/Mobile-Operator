@@ -219,9 +219,10 @@ namespace MobileOperator.Infrastructure
                 e.Property(w => w.Description).HasColumnName("description");
 
                 e.HasOne(w => w.Client)
-                 .WithMany()
-                 .HasForeignKey(w => w.ClientId)
-                 .OnDelete(DeleteBehavior.Restrict);
+                    .WithMany(c => c.WriteOffs)
+                    .HasForeignKey(w => w.ClientId)
+                    .HasPrincipalKey(c => c.UserId)
+                    .OnDelete(DeleteBehavior.Restrict);
             });
 
             base.OnModelCreating(modelBuilder);
