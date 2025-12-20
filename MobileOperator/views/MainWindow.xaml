@@ -41,7 +41,7 @@
                                                     VerticalAlignment="Center"
                                                     HorizontalAlignment="Center"
                                                     ContentSource="Header"
-                                                    Margin="20,12"/>
+                                                    Margin="8,12"/>
                                 </Border>
                                 <ControlTemplate.Triggers>
                                     <Trigger Property="IsSelected" Value="True">
@@ -404,6 +404,11 @@
             <!-- Вкладка "Тарифы и услуги" -->
             <TabItem Header="Тарифы и услуги">
                 <Frame x:Name="Detailing2Frame" NavigationUIVisibility="Hidden"/>
+            </TabItem>
+            
+            <!-- Вкладка "Списания" -->
+            <TabItem Header="Списания">
+                <Frame x:Name="WriteOffsFrame" NavigationUIVisibility="Hidden"/>
             </TabItem>
         </TabControl>
     </Grid>

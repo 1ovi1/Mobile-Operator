@@ -89,8 +89,8 @@ namespace MobileOperator.viewmodels
                           workSheet.Columns.ColumnWidth = 20;
 
                           workSheet.Cells[1, 1] = "Детализация звонков";
-                          workSheet.Cells[2, 1] = $"Клиент (номер): {client.Number}";
-                          workSheet.Cells[3, 1] = $"Период: с {from:dd.MM.yyyy} по {till:dd.MM.yyyy}";
+                          workSheet.Cells[2, 1] = $"Клиент: {client.Number}"; 
+                          workSheet.Cells[3, 1] = $"Период: {from:dd.MM.yyyy} - {till:dd.MM.yyyy}";
 
                           int startRow = 5;
                           workSheet.Cells[startRow, 1] = "Собеседник";

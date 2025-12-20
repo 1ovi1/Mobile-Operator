@@ -44,6 +44,10 @@ namespace MobileOperator
             {
                 Detailing2Frame.Navigate(new DetailingWindow2(userId, status));
             }
+            else if (MainTabControl.SelectedIndex == 5 && WriteOffsFrame.Content == null)
+            {
+                WriteOffsFrame.Navigate(new WriteOffsPage(userId, status));
+            }
         }
 
         private void CallButton_Click(object sender, RoutedEventArgs e)

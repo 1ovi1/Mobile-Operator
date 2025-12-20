@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using MobileOperator.models;
@@ -62,13 +63,31 @@ namespace MobileOperator.viewmodels
                           else
                           {
                               RateModel selectedRate = new RateModel((int)rateId, _context);
+                              decimal totalCost = selectedRate.ConnectionCost + selectedRate.Cost;
 
-                              if (client.Balance < selectedRate.ConnectionCost + selectedRate.Cost)
+                              if (client.Balance < totalCost)
                                   MessageBox.Show("На вашем счету недостаточно средств для подключения тарифа!");
                               else
                               {
-                                  client.Balance -= (selectedRate.ConnectionCost + selectedRate.Cost);
+                                  client.Balance -= totalCost;
                                   
+                                  if (totalCost > 0)
+                                  {
+                                      var clientEntity = _context.Client.FirstOrDefault(c => c.UserId == clientId);
+                                      if (clientEntity != null)
+                                      {
+                                          var writeOff = new MobileOperator.Domain.Entities.WriteOff
+                                          {
+                                              ClientId = clientEntity.UserId,
+                                              Amount = totalCost,
+                                              WriteOffDate = System.DateTime.UtcNow,
+                                              Category = "Смена тарифа",
+                                              Description = $"Подключение тарифа '{selectedRate.Name}'"
+                                          };
+                                          _context.WriteOff.Add(writeOff);
+                                      }
+                                  }
+
                                   if (client.ChangeRate(selectedRate.Id))
                                   {
                                       MessageBox.Show("Подключение прошло успешно!");
