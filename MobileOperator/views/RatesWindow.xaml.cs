@@ -1,20 +1,8 @@
-﻿using MobileOperator.pages;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using MobileOperator.viewmodels;
 
-namespace MobileOperator
+namespace MobileOperator.views
 {
     /// <summary>
     /// Логика взаимодействия для RatesWindow.xaml
@@ -28,7 +16,7 @@ namespace MobileOperator
             InitializeComponent();
             this.userId = userId;
             this.status = status;
-            DataContext = new RatesViewModel(userId, status);
+            DataContext = new RateWindowViewModel(userId, status);
         }
 
         private void ChangeRateButton_Click(object sender, RoutedEventArgs e)

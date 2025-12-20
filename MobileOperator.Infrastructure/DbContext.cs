@@ -40,7 +40,6 @@ namespace MobileOperator.Infrastructure
             modelBuilder.Entity<Rate>().ToTable("rates");
             modelBuilder.Entity<RateHistory>().ToTable("rate_history");
             modelBuilder.Entity<ServiceHistory>().ToTable("service_history");
-            // Маппинг новой таблицы
             modelBuilder.Entity<WriteOff>().ToTable("write_offs");
 
             modelBuilder.Entity<User>(e =>

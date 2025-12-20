@@ -14,16 +14,21 @@ namespace MobileOperator.Domain.Entities
         }
 
         [Key]
+        [Column("id")]
         public int Id { get; set; }
 
         [Required]
         [StringLength(50)]
+        [Column("name")]
         public string Name { get; set; }
 
+        [Column("cost")]
         public decimal? Cost { get; set; }
 
+        [Column("connection_cost")] 
         public decimal? ConnectionCost { get; set; }
 
+        [Column("conditions")]
         public string Conditions { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
