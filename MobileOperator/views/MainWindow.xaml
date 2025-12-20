@@ -301,7 +301,7 @@
                                             BorderThickness="1"
                                             CornerRadius="8"
                                             Padding="15,10"
-                                            Margin="0,0,10,10"
+                                            Margin="0,0,30,10"
                                             Grid.Row="0"
                                             Grid.Column="0">
                                         <TextBlock Text="Интернет"
@@ -315,7 +315,7 @@
                                                Foreground="#FFA500"
                                                FontWeight="Bold"
                                                VerticalAlignment="Center"
-                                               Margin="0,0,0,10">
+                                               Margin="0,0,60,10">
                                         <Run Text="{Binding Path=GB}"/>
                                         <Run Text=" ГБ" FontSize="24"/>
                                     </TextBlock>
@@ -325,7 +325,7 @@
                                             BorderThickness="1"
                                             CornerRadius="8"
                                             Padding="15,10"
-                                            Margin="0,0,10,10"
+                                            Margin="0,0,30,10"
                                             Grid.Row="1"
                                             Grid.Column="0">
                                         <TextBlock Text="Минуты"
@@ -339,7 +339,7 @@
                                                Foreground="#FFA500"
                                                FontWeight="Bold"
                                                VerticalAlignment="Center"
-                                               Margin="0,0,0,10">
+                                               Margin="0,0,60,10">
                                         <Run Text="{Binding Path=Minutes}"/>
                                         <Run Text=" мин." FontSize="24"/>
                                     </TextBlock>
@@ -349,7 +349,7 @@
                                             BorderThickness="1"
                                             CornerRadius="8"
                                             Padding="15,10"
-                                            Margin="0,0,10,0"
+                                            Margin="0,0,30,0"
                                             Grid.Row="2"
                                             Grid.Column="0">
                                         <TextBlock Text="СМС"
@@ -362,6 +362,7 @@
                                                FontSize="32"
                                                Foreground="#FFA500"
                                                FontWeight="Bold"
+                                               Margin="0,0,60,0"
                                                VerticalAlignment="Center">
                                         <Run Text="{Binding Path=SMS}"/>
                                         <Run Text=" смс" FontSize="24"/>
@@ -379,7 +380,7 @@
                             Height="60"
                             Background="#FFD700"
                             BorderBrush="#FFD700"
-                            Click="CallButton_Click">
+                            Command="{Binding OpenDialerCommand}">
                         <materialDesign:PackIcon Kind="Phone" Height="30" Width="30" Foreground="#1A1A1A" />
                     </Button>
                 </Grid>

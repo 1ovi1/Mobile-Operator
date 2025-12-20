@@ -2,24 +2,20 @@
 
 namespace MobileOperator.views
 {
-    /// <summary>
-    /// Логика взаимодействия для DialerWindow.xaml
-    /// </summary>
     public partial class DialerWindow : Window
     {
-        public DialerWindow()
+        public DialerWindow(int userId)
         {
             InitializeComponent();
-        }
-        private void CloseButton_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-        private void CallButton_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-            CallWindow callWindow = new CallWindow();
-            callWindow.Show();
+            var viewModel = new viewmodels.DialerViewModel(userId);
+            viewModel.CloseRequested += () => Close();
+            viewModel.CallRequested += (phoneNumber) =>
+            {
+                Close();
+                var callWindow = new CallWindow(userId, phoneNumber);
+                callWindow.Show();
+            };
+            DataContext = viewModel;
         }
     }
 }

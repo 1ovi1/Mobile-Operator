@@ -16,8 +16,7 @@
         </Grid.RowDefinitions>
 
         <!-- Экран для номера -->
-        <TextBlock x:Name="PhoneNumberText"
-                   Text=""
+        <TextBlock Text="{Binding PhoneNumber}"
                    FontSize="48"
                    Foreground="#FFA500"
                    HorizontalAlignment="Center"
@@ -25,29 +24,31 @@
                    Margin="20,40,20,20"/>
 
         <UniformGrid Grid.Row="1" Columns="3" Rows="4" Margin="20">
-            <Button Content="1" Style="{StaticResource DialerButton}"/>
-            <Button Content="2" Style="{StaticResource DialerButton}"/>
-            <Button Content="3" Style="{StaticResource DialerButton}"/>
-            <Button Content="4" Style="{StaticResource DialerButton}"/>
-            <Button Content="5" Style="{StaticResource DialerButton}"/>
-            <Button Content="6" Style="{StaticResource DialerButton}"/>
-            <Button Content="7" Style="{StaticResource DialerButton}"/>
-            <Button Content="8" Style="{StaticResource DialerButton}"/>
-            <Button Content="9" Style="{StaticResource DialerButton}"/>
-            <Button Content="*" Style="{StaticResource DialerButton}"/>
-            <Button Content="0" Style="{StaticResource DialerButton}"/>
-            <Button Content="#" Style="{StaticResource DialerButton}"/>
+            <Button Content="1" Style="{StaticResource DialerButton}" Command="{Binding DigitCommand}" CommandParameter="1"/>
+            <Button Content="2" Style="{StaticResource DialerButton}" Command="{Binding DigitCommand}" CommandParameter="2"/>
+            <Button Content="3" Style="{StaticResource DialerButton}" Command="{Binding DigitCommand}" CommandParameter="3"/>
+            <Button Content="4" Style="{StaticResource DialerButton}" Command="{Binding DigitCommand}" CommandParameter="4"/>
+            <Button Content="5" Style="{StaticResource DialerButton}" Command="{Binding DigitCommand}" CommandParameter="5"/>
+            <Button Content="6" Style="{StaticResource DialerButton}" Command="{Binding DigitCommand}" CommandParameter="6"/>
+            <Button Content="7" Style="{StaticResource DialerButton}" Command="{Binding DigitCommand}" CommandParameter="7"/>
+            <Button Content="8" Style="{StaticResource DialerButton}" Command="{Binding DigitCommand}" CommandParameter="8"/>
+            <Button Content="9" Style="{StaticResource DialerButton}" Command="{Binding DigitCommand}" CommandParameter="9"/>
+            <Button Content="*" Style="{StaticResource DialerButton}" Command="{Binding DigitCommand}" CommandParameter="*"/>
+            <Button Content="0" Style="{StaticResource DialerButton}" Command="{Binding DigitCommand}" CommandParameter="0"/>
+            <Button Content="⌫" Style="{StaticResource DialerButton}" Command="{Binding BackspaceCommand}"/>
         </UniformGrid>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="20">
             <Button Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
                     Background="#4CAF50" BorderBrush="#4CAF50" Margin="10"
-                    Width="60" Height="60" Click="CallButton_Click">
+                    Width="60" Height="60" 
+                    Command="{Binding CallCommand}">
                 <materialDesign:PackIcon Kind="Phone" Height="30" Width="30" />
             </Button>
             <Button Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
                     Background="#F44336" BorderBrush="#F44336" Margin="10"
-                    Width="60" Height="60" Click="CloseButton_Click">
+                    Width="60" Height="60" 
+                    Command="{Binding CloseCommand}">
                 <materialDesign:PackIcon Kind="Close" Height="30" Width="30" />
             </Button>
         </StackPanel>

@@ -14,7 +14,16 @@ namespace MobileOperator
             InitializeComponent();
             
             MainTabControl.SelectionChanged += MainTabControl_SelectionChanged;
-            DataContext = new AppViewModel(userId, status);
+            
+            var vm = new AppViewModel(userId, status);
+            
+            vm.OpenDialerRequested += () => 
+            {
+                DialerWindow dialerWindow = new DialerWindow(userId);
+                dialerWindow.Show();
+            };
+            
+            DataContext = vm;
         }
 
         private void MainTabControl_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
@@ -39,7 +48,7 @@ namespace MobileOperator
 
         private void CallButton_Click(object sender, RoutedEventArgs e)
         {
-            DialerWindow dialerWindow = new DialerWindow();
+            DialerWindow dialerWindow = new DialerWindow(userId);
             dialerWindow.Show();
         }
 
