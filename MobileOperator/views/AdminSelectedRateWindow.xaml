@@ -1,0 +1,112 @@
+﻿<Window x:Class="MobileOperator.AdminSelectedRateWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="'http://materialdesignxaml.net/winfx/xaml/themes"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:ii="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:ie="http://schemas.microsoft.com/expression/2010/interactions"
+        xmlns:y="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:syncfusion="http://schemas.syncfusion.com/wpf"  
+        xmlns:local="clr-namespace:MobileOperator"
+        mc:Ignorable="d"
+        Title="Мобильный оператор" Height="750" Width="900">
+    <Window.Resources>
+        <Style x:Key="VisibleButton" TargetType="Button" BasedOn="{StaticResource MaterialDesignPaperButton}">
+            <Setter Property="Visibility" Value="Collapsed"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Create}" Value="false">
+                    <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="VisibleTextBlock" TargetType="TextBlock">
+            <Setter Property="Visibility" Value="Collapsed"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Create}" Value="false">
+                    <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid Background="#FFF8DC" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+        <TextBlock HorizontalAlignment="Stretch" Foreground="White" FontWeight="Bold" Background="#A52A2A" Text="Новый тариф" VerticalAlignment="Top" Height="58"  TextAlignment="Center" FontSize="40" />
+        <TextBlock HorizontalAlignment="Stretch" Foreground="White" FontWeight="Bold" Background="#A52A2A" Text="Просмотр тарифа" VerticalAlignment="Top" Height="58"  TextAlignment="Center" FontSize="40" Style="{StaticResource VisibleTextBlock}" />
+
+        <Grid Margin=" 0, 59, 0, 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Button Command="{Binding OpenAdminMainWindow}" Content="Клиенты" FontSize="20" Background="#FFF8DC" Foreground="Black" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="40" Grid.Column="0"/>
+            <Button Command="{Binding OpenAdminRatesWindow}" Content="Тaрифы" FontSize="20"  Background="#FFF8DC" Foreground="Black" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="40" Grid.Column="1"/>
+            <Button Command="{Binding OpenAdminServicesWindow}" Content="Услуги" FontSize="20" Background="#FFF8DC" Foreground="Black" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="40" Grid.Column="2"/>
+            <Button Command="{Binding OpenAdminDetailWindow}" Content="Отчет" FontSize="20" Background="#FFF8DC" Foreground="Black" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="40" Grid.Column="3"/>
+            <Button Command="{Binding OpenAdminDetailWindow2}" Content="Отчет 2" FontSize="20" Background="#FFF8DC" Foreground="Black" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="40" Grid.Column="4"/>
+        </Grid>
+        <Border Background="White" Padding="20" CornerRadius="20" Margin="20,120,20,20" VerticalAlignment="Stretch" Grid.ColumnSpan="2">
+            <StackPanel>
+                <TextBox HorizontalAlignment="Center" Padding="20 0 20 0" TextAlignment="Center" Height="53" FontSize="30" Text="{Binding Rate}"/>
+
+                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0 10 0 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1.5*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="0">
+                        <TextBlock FontSize="20" Height="36" TextAlignment="Right" Margin="50,12,0,0"><Run Text="Количество минут в месяц: "/></TextBlock>
+                        <TextBlock FontSize="20" Height="36" TextAlignment="Right" Margin="50,0,0,0"><Run Text="Количество ГБ в месяц: "/></TextBlock>
+                        <TextBlock FontSize="20" Height="36" TextAlignment="Right" Margin="50,0,0,0"><Run Text="Количество CMC в месяц: "/></TextBlock>
+                        <TextBlock FontSize="20" Height="36" TextAlignment="Right" Margin="50,0,0,0"><Run Text="Ежемесячное списание: "/></TextBlock>
+                        <TextBlock FontSize="20" Height="36" TextAlignment="Right" Margin="50,0,0,0"><Run Text="Стоимость подключения: "/></TextBlock>
+                        <TextBlock FontSize="20" Height="36" TextAlignment="Right" Margin="50,0,0,0"><Run Text="Стоимость минуты по городу (вне пакета): "/></TextBlock>
+                        <TextBlock FontSize="20" Height="36" TextAlignment="Right" Margin="50,0,0,0"><Run Text="Стоимость минуты по межгороду: "/></TextBlock>
+                        <TextBlock FontSize="20" Height="36" TextAlignment="Right" Margin="50,0,0,0"><Run Text="Стоимость минуты в международных звонках: "/></TextBlock>
+                        <TextBlock FontSize="20" Height="36" TextAlignment="Right" Margin="50,0,0,0"><Run Text="Стоимость СМС (вне пакета): "/></TextBlock>
+                        <TextBlock FontSize="20" Height="36" TextAlignment="Right" Margin="50,0,0,0"><Run Text="Стоимость ГБ (вне пакета): "/></TextBlock>
+                    </StackPanel>
+
+                    <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1">
+
+                        <syncfusion:UpDown NumberDecimalDigits="0" FontSize="18" Height="36" Margin="20,0,20,0" Value="{Binding Minutes}" />
+                        <syncfusion:UpDown NumberDecimalDigits="0" FontSize="18" Height="36" Margin="20,0,20,0" Value="{Binding GB}" />
+                        <syncfusion:UpDown NumberDecimalDigits="0" FontSize="18" Height="36" Margin="20,0,20,0" Value="{Binding SMS}" />
+                        <syncfusion:UpDown FontSize="18" Height="36" Margin="20,0,20,0" Value="{Binding Cost}" />
+                        <syncfusion:UpDown FontSize="18" Height="36" Margin="20,0,20,0" Value="{Binding ConnectionCost}" />
+                        <syncfusion:UpDown FontSize="18" Height="36" Margin="20,0,20,0" Value="{Binding CityCost}" />
+                        <syncfusion:UpDown FontSize="18" Height="36" Margin="20,0,20,0" Value="{Binding IntercityCost}" />
+                        <syncfusion:UpDown FontSize="18" Height="36" Margin="20,0,20,0" Value="{Binding InternationalCost}" />
+                        <syncfusion:UpDown FontSize="18" Height="36" Margin="20,0,20,0" Value="{Binding SMSCost}" />
+                        <syncfusion:UpDown FontSize="18" Height="36" Margin="20,0,20,0" Value="{Binding GBCost}" />
+                        <CheckBox FontSize="20" Height="36" HorizontalAlignment="Left" Margin="20,0,0,20" Name="Corporate" Content="Корпоративный" IsChecked="{Binding Corporate}"></CheckBox>
+
+                    </StackPanel>
+                </Grid>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button Command="{Binding UpdateRateCommand}" Foreground="White" 
+                            Background="#A52A2A" FontSize="18" 
+                            Height="45" Width="300" HorizontalAlignment="Right" 
+                            Content="Сохранить изменения" Grid.Column="1"/>
+                    <Button Command="{Binding RemoveRateCommand}"  Foreground="White" 
+                            Background="#A52A2A" FontSize="18" Height="45" Width="300" 
+                            HorizontalAlignment="Left" Content="Удалить тариф" Grid.Column="0"  
+                            Style="{StaticResource VisibleButton}"/>
+                </Grid>
+            </StackPanel>
+        </Border>
+
+    </Grid>
+</Window>
+
+

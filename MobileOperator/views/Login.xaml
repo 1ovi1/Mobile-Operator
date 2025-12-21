@@ -85,8 +85,7 @@
                         FontWeight="Bold"
                         Height="45" 
                         BorderThickness="0"
-                        Cursor="Hand"
-                        Click="LoginButton_Click"/>
+                        Cursor="Hand"/>
             </StackPanel>
         </Border>
     </Grid>
