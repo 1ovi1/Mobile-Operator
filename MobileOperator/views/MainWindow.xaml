@@ -228,7 +228,6 @@
                             </StackPanel>
                         </Border>
 
-                        <!-- Услуги -->
                         <Border Background="#2A2A2A"
                                 BorderBrush="#FF8C00"
                                 BorderThickness="2"
@@ -237,18 +236,29 @@
                                 Margin="0,15,10,0"
                                 Grid.Row="1"
                                 Grid.Column="0">
-                            <StackPanel>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
                                 <TextBlock Text="Подключенные услуги:"
                                            TextAlignment="Center"
                                            FontSize="22"
                                            Foreground="#FFD700"
                                            FontWeight="Bold"
-                                           Margin="0,0,0,15"/>
+                                           Margin="0,0,0,15"
+                                           Grid.Row="0"/>
 
-                                <ListBox ItemsSource="{Binding Services}"
+                                <ListBox Grid.Row="1"
+                                         ItemsSource="{Binding Services}"
                                          Background="#1A1A1A"
                                          BorderBrush="#FF8C00"
-                                         BorderThickness="1">
+                                         BorderThickness="1"
+                                         ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                         ScrollViewer.CanContentScroll="True"
+                                         Margin="0,0,0,45">
                                     <ListBox.ItemTemplate>
                                         <DataTemplate>
                                             <Border Background="#2A2A2A"
@@ -264,8 +274,9 @@
                                         </DataTemplate>
                                     </ListBox.ItemTemplate>
                                 </ListBox>
-                            </StackPanel>
+                            </Grid>
                         </Border>
+
 
                         <!-- Остатки -->
                         <Border Background="#2A2A2A"
@@ -370,6 +381,21 @@
                             </StackPanel>
                         </Border>
                     </Grid>
+                    
+                    <Button HorizontalAlignment="Left"
+                            VerticalAlignment="Bottom"
+                            Margin="30,0,0,30"
+                            Height="40"
+                            Background="#B22222"
+                            BorderBrush="#B22222"
+                            Foreground="White"
+                            FontWeight="Bold"
+                            Content="Промотать в следующий месяц"
+                            Command="{Binding SimulateNextMonthCommand}">
+                        <Button.ToolTip>
+                            <ToolTip Content="Списать абонентскую плату и обновить пакеты"/>
+                        </Button.ToolTip>
+                    </Button>
 
                     <Button Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
                             HorizontalAlignment="Right"
