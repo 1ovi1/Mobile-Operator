@@ -16,7 +16,7 @@
         </Grid.RowDefinitions>
 
         <!-- Заголовок -->
-        <TextBlock Text="Детализация звонков (Админ)" 
+        <TextBlock Text="Сводка по звонкам" 
                    TextAlignment="Center" 
                    FontSize="24" 
                    Foreground="#FFD700"
@@ -101,7 +101,7 @@
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
-            <Button Command="{Binding PrintToExelDetailingCommand}" Content="Скачать в Excel" 
+            <Button Command="{Binding PrintToExelDetailingCommand}" Content="Скачать выписку в xlsx" 
                     Grid.Column="0" Margin="0,0,10,0" Height="45"
                     Background="#FFD700" Foreground="#1A1A1A" FontWeight="Bold" FontSize="16" BorderThickness="0">
                 <Button.Resources>
@@ -110,7 +110,7 @@
                     </Style>
                 </Button.Resources>
             </Button>
-            <Button Command="{Binding PrintToWordDetailingCommand}" Content="Скачать в Word" 
+            <Button Command="{Binding PrintToWordDetailingCommand}" Content="Скачать выписку в doc" 
                     Grid.Column="1" Margin="10,0,0,0" Height="45"
                     Background="#FFD700" Foreground="#1A1A1A" FontWeight="Bold" FontSize="16" BorderThickness="0">
                 <Button.Resources>
