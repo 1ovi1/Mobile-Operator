@@ -65,7 +65,7 @@ namespace MobileOperator.viewmodels
 
                         client.Balance = (decimal)dbData.Balance;
                         OnPropertyChanged("Balance");
-                        
+
                         client.Minutes = dbData.Minutes;
                         OnPropertyChanged("Minutes");
 
@@ -74,7 +74,7 @@ namespace MobileOperator.viewmodels
 
                         client.GB = dbData.GB ?? 0;
                         OnPropertyChanged("GB");
-                        
+
                         if (client.RateId != dbData.RateId)
                         {
                             client.RateId = (int)dbData.RateId;
@@ -108,7 +108,7 @@ namespace MobileOperator.viewmodels
             {
                 Services.Remove(service);
             }
-            
+
             foreach (int serviceId in currentServices)
             {
                 if (!Services.Any(s => s.Id == serviceId))
@@ -218,7 +218,7 @@ namespace MobileOperator.viewmodels
                   }));
             }
         }
-        
+
         private RelayCommand openDialerCommand;
         public RelayCommand OpenDialerCommand
         {
@@ -228,6 +228,80 @@ namespace MobileOperator.viewmodels
                        (openDialerCommand = new RelayCommand(obj =>
                        {
                            OpenDialerRequested?.Invoke();
+                       }));
+            }
+        }
+
+        private RelayCommand simulateNextMonthCommand;
+        public RelayCommand SimulateNextMonthCommand
+        {
+            get
+            {
+                return simulateNextMonthCommand ??
+                       (simulateNextMonthCommand = new RelayCommand(obj =>
+                       {
+                           decimal rateCost = rate.Cost;
+                           if (client.Balance >= rateCost)
+                           {
+                               client.Balance -= rateCost;
+                               
+                               _context.WriteOff.Add(new MobileOperator.Domain.Entities.WriteOff
+                               {
+                                   ClientId = userId,
+                                   Amount = rateCost,
+                                   WriteOffDate = DateTime.UtcNow,
+                                   Category = "Абонентская плата",
+                                   Description = $"Плата за тариф '{rate.Name}'"
+                               });
+                               
+                               client.Minutes = rate.Minutes;
+                               client.GB = rate.GB;
+                               client.SMS = rate.SMS;
+                           }
+                           else
+                           {
+                               client.Minutes = 0;
+                               client.GB = 0;
+                               client.SMS = 0;
+                           }
+                           
+                           var servicesToProcess = Services.ToList();
+
+                           foreach (var service in servicesToProcess)
+                           {
+                               if (client.Balance >= service.Cost)
+                               {
+                                   client.Balance -= service.Cost;
+
+                                   _context.WriteOff.Add(new MobileOperator.Domain.Entities.WriteOff
+                                   {
+                                       ClientId = userId,
+                                       Amount = service.Cost,
+                                       WriteOffDate = DateTime.UtcNow,
+                                       Category = "Абонентская плата",
+                                       Description = $"Плата за услугу '{service.Name}'"
+                                   });
+                               }
+                               else
+                               {
+                                   if (service.DisconnectService(client.Id))
+                                   {
+                                       Services.Remove(service);
+                                   }
+                               }
+                           }
+                           
+                           if (client.Save())
+                           {
+                               OnPropertyChanged("Balance");
+                               OnPropertyChanged("Minutes");
+                               OnPropertyChanged("GB");
+                               OnPropertyChanged("SMS");
+                           }
+                           else
+                           {
+                               MessageBox.Show("Ошибка при обновлении данных месяца.");
+                           }
                        }));
             }
         }
