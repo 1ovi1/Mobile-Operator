@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using Microsoft.EntityFrameworkCore;
+using MobileOperator.views;
 
 namespace MobileOperator
 {
@@ -47,7 +48,7 @@ namespace MobileOperator
             //     MessageBox.Show($"Ошибка подключения:\n{ex.Message}", "Исключение", MessageBoxButton.OK, MessageBoxImage.Error);
             // }
             
-            var dialog = new MainWindow();
+            var dialog = new Login();
             dialog.ShowDialog();
         }
 
