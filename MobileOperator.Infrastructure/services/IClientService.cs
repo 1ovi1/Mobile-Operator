@@ -1,3 +1,5 @@
+// отказался от сервисов
+
 // using MobileOperator.Domain.Entities;
 //
 // namespace MobileOperator.Infrastructure.services;

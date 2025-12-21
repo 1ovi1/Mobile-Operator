@@ -8,7 +8,6 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
 >
     <Grid Background="#1A1A1A">
-        <!-- Основной контент -->
         <Grid Margin="15">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -16,8 +15,7 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-
-            <!-- Заголовок -->
+            
             <TextBlock Text="История звонков" 
                        TextAlignment="Center" 
                        FontSize="24" 
@@ -25,8 +23,7 @@
                        FontWeight="Bold"
                        Margin="0,0,0,15"
                        Grid.Row="0"/>
-
-            <!-- Выбор периода -->
+            
             <Border Background="#2A2A2A" 
                     BorderBrush="#FF8C00" 
                     BorderThickness="2" 
@@ -86,8 +83,7 @@
                             Grid.Column="4"/>
                 </Grid>
             </Border>
-
-            <!-- Таблица звонков -->
+            
             <Border Background="#2A2A2A" 
                     BorderBrush="#FF8C00" 
                     BorderThickness="2" 
@@ -128,8 +124,7 @@
                     </DataGrid.Columns>
                 </DataGrid>
             </Border>
-
-            <!-- Кнопки экспорта -->
+            
             <Grid Grid.Row="3">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>

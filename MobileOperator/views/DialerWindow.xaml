@@ -14,8 +14,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-
-        <!-- Экран для номера -->
+        
         <TextBlock Text="{Binding PhoneNumber}"
                    FontSize="48"
                    Foreground="#FFA500"

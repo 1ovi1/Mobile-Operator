@@ -14,8 +14,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-
-        <!-- Заголовок -->
+        
         <TextBlock Text="История списаний средств" 
                    TextAlignment="Center" 
                    FontSize="24" 
@@ -23,8 +22,7 @@
                    FontWeight="Bold"
                    Margin="0,0,0,15"
                    Grid.Row="0"/>
-
-        <!-- Выбор периода -->
+        
         <Border Background="#2A2A2A" 
                 BorderBrush="#FF8C00" 
                 BorderThickness="2" 
@@ -78,8 +76,7 @@
                         HorizontalAlignment="Left" Grid.Column="4"/>
             </Grid>
         </Border>
-
-        <!-- Таблица -->
+        
         <Border Background="#2A2A2A"
             BorderBrush="#FF8C00"
             BorderThickness="2"

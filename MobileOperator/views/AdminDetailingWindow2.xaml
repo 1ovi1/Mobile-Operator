@@ -14,8 +14,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-
-        <!-- Заголовок -->
+        
         <TextBlock Text="Сводка подключений" 
                    TextAlignment="Center" 
                    FontSize="24" 
@@ -23,8 +22,7 @@
                    FontWeight="Bold"
                    Margin="0,0,0,15"
                    Grid.Row="0"/>
-
-        <!-- Панель поиска -->
+        
         <Border Grid.Row="1" Background="#2A2A2A" CornerRadius="15" Padding="20" Margin="0,0,0,15" BorderBrush="#FF8C00" BorderThickness="2">
             <StackPanel>
                 <Grid>
@@ -52,15 +50,13 @@
                 </Grid>
             </StackPanel>
         </Border>
-
-        <!-- Таблицы -->
+        
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             
-            <!-- Тарифы -->
             <Border Grid.Column="0" Background="#2A2A2A" BorderBrush="#FF8C00" BorderThickness="2" CornerRadius="15" Padding="10" Margin="0,0,10,0">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -89,7 +85,6 @@
                 </Grid>
             </Border>
 
-            <!-- Услуги -->
             <Border Grid.Column="1" Background="#2A2A2A" BorderBrush="#FF8C00" BorderThickness="2" CornerRadius="15" Padding="10" Margin="10,0,0,0">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -119,7 +114,6 @@
             </Border>
         </Grid>
         
-        <!-- Экспорт -->
         <Grid Grid.Row="3" Margin="0,15,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>

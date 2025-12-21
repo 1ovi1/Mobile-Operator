@@ -8,7 +8,6 @@
         xmlns:local="clr-namespace:MobileOperator"
         mc:Ignorable="d">
     <Grid Background="#1A1A1A">
-        <!-- Основной контент -->
         <Grid Margin="15">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -18,8 +17,7 @@
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
-
-            <!-- Блок "Мой тариф" -->
+            
             <Border Background="#2A2A2A" 
                     BorderBrush="#FF8C00" 
                     BorderThickness="2" 
@@ -77,8 +75,7 @@
                             Click="ChangeRateButton_Click"/>
                 </StackPanel>
             </Border>
-
-            <!-- Блок "Информация о тарифе" -->
+            
             <Border Background="#2A2A2A" 
                     BorderBrush="#FF8C00" 
                     BorderThickness="2" 
@@ -149,8 +146,7 @@
                     </Grid>
                 </StackPanel>
             </Border>
-
-            <!-- Таблица тарифов -->
+            
             <Border Background="#2A2A2A" 
                     BorderBrush="#FF8C00" 
                     BorderThickness="2" 

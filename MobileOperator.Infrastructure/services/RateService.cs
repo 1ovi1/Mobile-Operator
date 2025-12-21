@@ -1,3 +1,5 @@
+// отказался от сервисов
+
 // using Microsoft.EntityFrameworkCore;
 // using MobileOperator.Domain.Entities;
 //

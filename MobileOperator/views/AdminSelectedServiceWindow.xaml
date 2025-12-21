@@ -3,24 +3,31 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:materialDesign="'http://materialdesignxaml.net/winfx/xaml/themes"
-        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-        xmlns:ii="http://schemas.microsoft.com/expression/2010/interactivity"
-        xmlns:ie="http://schemas.microsoft.com/expression/2010/interactions"
-        xmlns:y="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:syncfusion="http://schemas.syncfusion.com/wpf"  
         xmlns:local="clr-namespace:MobileOperator"
         mc:Ignorable="d"
-        Title="Мобильный оператор" Height="750" Width="900">
+        Title="Мобильный оператор" Height="750" Width="900"
+        Background="#1A1A1A" Foreground="White">
+    
     <Window.Resources>
-        <Style x:Key="VisibleButton" TargetType="Button"  BasedOn="{StaticResource MaterialDesignPaperButton}">
+        <Style x:Key="VisibleButton" TargetType="Button">
             <Setter Property="Visibility" Value="Collapsed"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="5" BorderThickness="0">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
             <Style.Triggers>
                 <DataTrigger Binding="{Binding Create}" Value="false">
                     <Setter Property="Visibility" Value="Visible"/>
                 </DataTrigger>
             </Style.Triggers>
         </Style>
+        
         <Style x:Key="VisibleTextBlock" TargetType="TextBlock">
             <Setter Property="Visibility" Value="Collapsed"/>
             <Style.Triggers>
@@ -29,71 +36,99 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
+        
+        <Style TargetType="TextBox">
+            <Setter Property="Background" Value="#1A1A1A"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#FF8C00"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="CaretBrush" Value="White"/>
+        </Style>
     </Window.Resources>
 
-    <Grid Background="#FFF8DC" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="130*"/>
-            <ColumnDefinition Width="317*"/>
-        </Grid.ColumnDefinitions>
-        <TextBlock HorizontalAlignment="Stretch" Foreground="White" FontWeight="Bold" Background="#A52A2A" Text="Просмотр услуги" VerticalAlignment="Top" Height="58"  TextAlignment="Center" FontSize="40"  Style="{StaticResource VisibleTextBlock}" Grid.ColumnSpan="2" Margin="0,0,-0.4,0" />
-        <TextBlock HorizontalAlignment="Stretch" Foreground="White" FontWeight="Bold" Background="#A52A2A" Text="Создание услуги" VerticalAlignment="Top" Height="58"  TextAlignment="Center" FontSize="40" Grid.ColumnSpan="2" Margin="0,0,-0.4,0"/>
-
-        <Grid Margin="0,59,-0.4,-0.2" Grid.ColumnSpan="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-            </Grid.ColumnDefinitions>
-            <Button Command="{Binding OpenAdminMainWindow}" Content="Клиенты" FontSize="20" Background="#FFF8DC" Foreground="Black" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="40" Grid.Column="0"/>
-            <Button Command="{Binding OpenAdminRatesWindow}" Content="Тaрифы" FontSize="20"  Background="#FFF8DC" Foreground="Black" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="40" Grid.Column="1"/>
-            <Button Command="{Binding OpenAdminServicesWindow}" Content="Услуги" FontSize="20" Background="#FFF8DC" Foreground="Black" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="40" Grid.Column="2"/>
-            <Button Command="{Binding OpenAdminDetailWindow}" Content="Отчет" FontSize="20" Background="#FFF8DC" Foreground="Black" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="40" Grid.Column="3"/>
-            <Button Command="{Binding OpenAdminDetailWindow2}" Content="Отчет 2" FontSize="20" Background="#FFF8DC" Foreground="Black" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="40" Grid.Column="4"/>
-        </Grid>
-        <Border Background="White" Padding="20" CornerRadius="20" Margin="20,120,19.6,0" VerticalAlignment="Top" Grid.ColumnSpan="2">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <Border Grid.Row="0" Height="70">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                    <GradientStop Color="#FF8C00" Offset="0"/>
+                    <GradientStop Color="#FFA500" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Grid>
+                <TextBlock Text="Просмотр услуги" Style="{StaticResource VisibleTextBlock}"
+                           VerticalAlignment="Center" HorizontalAlignment="Center"
+                           FontSize="28" FontWeight="Bold" Foreground="#1A1A1A"/>
+                
+                <TextBlock Text="Создание услуги"
+                           VerticalAlignment="Center" HorizontalAlignment="Center"
+                           FontSize="28" FontWeight="Bold" Foreground="#1A1A1A">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Create}" Value="true">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Grid>
+        </Border>
+        
+        <Border Grid.Row="2" Background="#2A2A2A" BorderBrush="#FF8C00" BorderThickness="2" CornerRadius="15" Margin="20" Padding="20">
             <StackPanel>
-                <TextBox HorizontalAlignment="Center" Padding="20 0 20 0" TextAlignment="Center" Height="53" FontSize="30" Text="{Binding Name}"/>
+                <TextBox HorizontalAlignment="Center" TextAlignment="Center" FontSize="24" Text="{Binding Name}" Width="400" Margin="0,0,0,20"/>
 
-                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0 10 0 0">
+                <Grid Margin="0,10,0,0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="0">
-                        <TextBlock FontSize="20" Height="36" TextAlignment="Right" Margin="50,12,0,0"><Run Text="Ежемесячное списание (руб): "/></TextBlock>
-                        <TextBlock FontSize="20" Height="36" TextAlignment="Right" Margin="50,0,0,0"><Run Text="Стоимость подключения (руб): "/></TextBlock>
-                        <TextBlock FontSize="20" Height="100" TextAlignment="Right" Margin="50,0,0,0"><Run Text="Условия: "/></TextBlock>
+                    <StackPanel Grid.Column="0" Margin="0,0,20,0" VerticalAlignment="Top">
+                        <TextBlock Text="Ежемесячное списание (руб):" FontSize="18" Foreground="#FFA500" Margin="0,12,0,12" TextAlignment="Right"/>
+                        <TextBlock Text="Стоимость подключения (руб):" FontSize="18" Foreground="#FFA500" Margin="0,12,0,12" TextAlignment="Right"/>
+                        <TextBlock Text="Условия:" FontSize="18" Foreground="#FFA500" Margin="0,12,0,12" TextAlignment="Right"/>
                     </StackPanel>
 
-                    <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1">
-                        <syncfusion:UpDown FontSize="18" Height="36" Margin="20,0,20,0" Value="{Binding Cost}" />
-                        <syncfusion:UpDown FontSize="18" Height="36" Margin="20,0,20,0" Value="{Binding ConnectionCost}" />
-                        <TextBox FontSize="18" Margin="20,0,20,0" Text="{Binding Condition}" TextWrapping="Wrap" HorizontalAlignment="Stretch" VerticalContentAlignment="Top" AcceptsReturn="True" Height="100" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Padding="5"/>
+                    <StackPanel Grid.Column="1">
+                        <syncfusion:UpDown FontSize="18" Height="36" Margin="0,5" Value="{Binding Cost}" Background="#1A1A1A" Foreground="White" BorderBrush="#FF8C00"/>
+                        <syncfusion:UpDown FontSize="18" Height="36" Margin="0,5" Value="{Binding ConnectionCost}" Background="#1A1A1A" Foreground="White" BorderBrush="#FF8C00"/>
+                        <TextBox FontSize="16" Margin="0,5" Text="{Binding Condition}" TextWrapping="Wrap" AcceptsReturn="True" Height="120" VerticalScrollBarVisibility="Auto"/>
                     </StackPanel>
                 </Grid>
 
-                <Grid>
+                <Grid Margin="0,30,0,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Button Command="{Binding UpdateServiceCommand}" Foreground="White" 
-                            Background="#A52A2A" FontSize="18" 
-                            Height="45" Width="300" HorizontalAlignment="Right" 
-                            Content="Сохранить изменения" Grid.Column="1"/>
-                    <Button Command="{Binding RemoveServiceCommand}"  Foreground="White" 
-                            Background="#A52A2A" FontSize="18" Height="45" Width="300" 
-                            HorizontalAlignment="Left" Content="Удалить услугу" Grid.Column="0"  
-                            Style="{StaticResource VisibleButton}"/>
+                    
+                    <Button Command="{Binding RemoveServiceCommand}" Content="Удалить услугу"
+                            Style="{StaticResource VisibleButton}"
+                            Background="#B22222" Foreground="White" FontSize="16" Height="45" Width="250" HorizontalAlignment="Left"/>
+
+                    <Button Command="{Binding UpdateServiceCommand}" Content="Сохранить изменения"
+                            Grid.Column="1"
+                            Background="#FFD700" Foreground="#1A1A1A" FontWeight="Bold" FontSize="16" Height="45" Width="250" HorizontalAlignment="Right">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="{TemplateBinding Background}" CornerRadius="5">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
                 </Grid>
             </StackPanel>
         </Border>
-
     </Grid>
 </Window>
-
-

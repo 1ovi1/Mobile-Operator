@@ -9,15 +9,13 @@
         mc:Ignorable="d"
 >
     <Grid Background="#1A1A1A">
-        <!-- Основной контент -->
         <ScrollViewer Margin="15" VerticalScrollBarVisibility="Auto">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-
-                <!-- Подключенные услуги -->
+                
                 <Border Background="#2A2A2A" 
                         BorderBrush="#FF8C00" 
                         BorderThickness="2" 
@@ -51,8 +49,7 @@
                                                 <ColumnDefinition Width="3*"/>
                                                 <ColumnDefinition Width="Auto"/>
                                             </Grid.ColumnDefinitions>
-
-                                            <!-- Название и цена -->
+                                            
                                             <StackPanel Grid.Column="0" VerticalAlignment="Center">
                                                 <TextBlock Text="{Binding Path=Name}" 
                                                            FontSize="22" 
@@ -68,8 +65,7 @@
                                                     <Run Text=" ₽/мес"/>
                                                 </TextBlock>
                                             </StackPanel>
-
-                                            <!-- Условия -->
+                                            
                                             <StackPanel Grid.Column="1" 
                                                         VerticalAlignment="Center"
                                                         Margin="20,0">
@@ -78,8 +74,7 @@
                                                            Foreground="#FFD700"
                                                            TextWrapping="Wrap"/>
                                             </StackPanel>
-
-                                            <!-- Кнопка отключения -->
+                                            
                                             <Button Grid.Column="2" 
                                                     Command="{Binding DisconnectServiceCommand}" 
                                                     CommandParameter="{Binding Path=Id}" 
@@ -99,8 +94,7 @@
                         </ListBox>
                     </StackPanel>
                 </Border>
-
-                <!-- Доступные услуги -->
+                
                 <Border Background="#2A2A2A" 
                         BorderBrush="#FF8C00" 
                         BorderThickness="2" 
@@ -159,7 +153,6 @@
                                                 </TextBlock>
                                             </StackPanel>
 
-                                            <!-- Условия -->
                                             <StackPanel Grid.Column="1" 
                                                         VerticalAlignment="Center"
                                                         Margin="20,0">
@@ -168,8 +161,7 @@
                                                            Foreground="#FFD700"
                                                            TextWrapping="Wrap"/>
                                             </StackPanel>
-
-                                            <!-- Кнопка подключения -->
+                                            
                                             <Button Grid.Column="2" 
                                                     Command="{Binding ConnectServiceCommand}" 
                                                     CommandParameter="{Binding Path=Id}" 

@@ -1,8 +1,7 @@
 namespace MobileOperator.Infrastructure
 {
     /// <summary>
-    /// Глобальное состояние текущей сессии пользователя.
-    /// Хранит данные о том, кто сейчас залогинен в системе.
+    /// Текущий сессия пользоватееля
     /// </summary>
     public static class UserSession
     {

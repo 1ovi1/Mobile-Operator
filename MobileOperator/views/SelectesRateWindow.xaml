@@ -9,7 +9,6 @@
         mc:Ignorable="d"
         Title="Мобильный оператор" Height="800" Width="900">
     <Grid Background="#1A1A1A">
-        <!-- Шапка -->
         <Border VerticalAlignment="Top" Height="70">
             <Border.Background>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
@@ -24,8 +23,7 @@
                        VerticalAlignment="Center" 
                        HorizontalAlignment="Center"/>
         </Border>
-
-        <!-- Навигационное меню -->
+        
         <Grid Margin="0,70,0,0" VerticalAlignment="Top" Height="50">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
@@ -80,8 +78,7 @@
                     BorderThickness="1"
                     Grid.Column="4"/>
         </Grid>
-
-        <!-- Основной контент -->
+        
         <Border Background="#2A2A2A" 
                 BorderBrush="#FF8C00" 
                 BorderThickness="2" 
@@ -90,22 +87,19 @@
                 Margin="80,150,80,80"
                 VerticalAlignment="Stretch">
             <StackPanel>
-                <!-- Название тарифа -->
                 <TextBlock Text="{Binding Rate}" 
                            TextAlignment="Center" 
                            FontSize="32" 
                            Foreground="#FFA500" 
                            FontWeight="Bold"
                            Margin="0,0,0,30"/>
-
-                <!-- Информация о тарифе -->
+                
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
-
-                    <!-- Левая колонка -->
+                    
                     <StackPanel Grid.Column="0" Margin="0,0,20,0">
                         <TextBlock FontSize="18" Foreground="#FFD700" Margin="0,0,0,12">
                             <Run Text="Минуты в месяц: "/>
@@ -133,8 +127,7 @@
                             <Run Text=" ₽"/>
                         </TextBlock>
                     </StackPanel>
-
-                    <!-- Правая колонка -->
+                    
                     <StackPanel Grid.Column="1" Margin="20,0,0,0">
                         <TextBlock FontSize="18" Foreground="#FFD700" Margin="0,0,0,12">
                             <Run Text="Минута по городу: "/>
@@ -163,8 +156,7 @@
                         </TextBlock>
                     </StackPanel>
                 </Grid>
-
-                <!-- Кнопка перехода на тариф -->
+                
                 <Button Command="{Binding ChangeRateCommand}" 
                         Content="Перейти на этот тариф!"
                         Foreground="#1A1A1A" 

@@ -14,8 +14,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-
-        <!-- Заголовок -->
+        
         <TextBlock Text="Сводка по звонкам" 
                    TextAlignment="Center" 
                    FontSize="24" 
@@ -23,11 +22,9 @@
                    FontWeight="Bold"
                    Margin="0,0,0,15"
                    Grid.Row="0"/>
-
-        <!-- Панель поиска и периода -->
+        
         <Border Grid.Row="1" Background="#2A2A2A" CornerRadius="15" Padding="20" Margin="0,0,0,15" BorderBrush="#FF8C00" BorderThickness="2">
             <StackPanel>
-                <!-- Поиск -->
                 <Grid Margin="0,0,0,15">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
@@ -42,7 +39,6 @@
                     <TextBox Text="{Binding SearchName}" Grid.Column="3" Padding="5" Background="#1A1A1A" Foreground="White" BorderBrush="#FF8C00"/>
                 </Grid>
                 
-                <!-- Период -->
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
@@ -69,8 +65,7 @@
                 </Grid>
             </StackPanel>
         </Border>
-
-        <!-- Таблица -->
+        
         <Border Grid.Row="2" Background="#2A2A2A" BorderBrush="#FF8C00" BorderThickness="2" CornerRadius="15" Padding="10">
             <DataGrid ItemsSource="{Binding Calls}" AutoGenerateColumns="False" CanUserAddRows="False"
                       Background="#1A1A1A" RowBackground="#2A2A2A" AlternatingRowBackground="#1A1A1A"
@@ -94,8 +89,7 @@
                 </DataGrid.Columns>
             </DataGrid>
         </Border>
-
-        <!-- Экспорт -->
+        
         <Grid Grid.Row="3" Margin="0,15,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>

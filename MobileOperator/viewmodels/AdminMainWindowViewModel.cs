@@ -128,6 +128,7 @@ namespace MobileOperator.viewmodels
         }
     }
 
+    // костыль
     public class ClientViewModel
     {
         public int Id { get; set; }

@@ -19,7 +19,6 @@
                 MinWidth="450"
                 MaxWidth="500">
             <StackPanel>
-                <!-- Заголовок -->
                 <TextBlock Text="С возвращением!" 
                            FontWeight="Bold" 
                            FontSize="32" 

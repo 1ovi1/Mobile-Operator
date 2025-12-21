@@ -15,8 +15,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
-        <!-- Верхняя панель (Градиент) -->
+        
         <Border Grid.Row="0" Height="70">
             <Border.Background>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
@@ -41,8 +40,7 @@
                 </Button>
             </Grid>
         </Border>
-
-        <!-- Вкладки -->
+        
         <TabControl x:Name="AdminTabControl" Grid.Row="1" 
                     Background="#1A1A1A" BorderThickness="0"
                     TabStripPlacement="Top" SelectionChanged="AdminTabControl_SelectionChanged"
@@ -79,8 +77,7 @@
                     <Setter Property="FontWeight" Value="Bold"/>
                 </Style>
             </TabControl.Resources>
-
-            <!-- 1. Клиенты -->
+            
             <TabItem Header="Клиенты">
                 <Grid Margin="15">
                     <Grid.RowDefinitions>
@@ -135,23 +132,19 @@
                     </Border>
                 </Grid>
             </TabItem>
-
-            <!-- 2. Тарифы -->
+            
             <TabItem Header="Тарифы">
                 <Frame x:Name="RatesFrame" NavigationUIVisibility="Hidden"/>
             </TabItem>
-
-            <!-- 3. Услуги -->
+            
             <TabItem Header="Услуги">
                 <Frame x:Name="ServicesFrame" NavigationUIVisibility="Hidden"/>
             </TabItem>
-
-            <!-- 4. Детализация звонков -->
+            
             <TabItem Header="Детализация звонков">
                 <Frame x:Name="DetailingFrame" NavigationUIVisibility="Hidden"/>
             </TabItem>
-
-            <!-- 5. История услуг -->
+            
             <TabItem Header="История услуг">
                 <Frame x:Name="HistoryFrame" NavigationUIVisibility="Hidden"/>
             </TabItem>

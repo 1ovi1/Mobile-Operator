@@ -59,12 +59,9 @@
                     <Setter Property="FontWeight" Value="Bold"/>
                 </Style>
             </TabControl.Resources>
-
-            <!-- Вкладка "Мой кабинет" -->
+            
             <TabItem Header="Мой кабинет">
-                <!-- Весь ваш текущий контент из Grid -->
                 <Grid Background="#1A1A1A">
-                    <!-- Авторизация -->
                     <Border Background="#2A2A2A"
                             BorderBrush="#FF8C00"
                             BorderThickness="2"
@@ -96,8 +93,7 @@
                                     HorizontalAlignment="Right"/>
                         </Grid>
                     </Border>
-
-                    <!-- Основной контент -->
+                    
                     <Grid Margin="15,90,15,15">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="1*"/>
@@ -107,8 +103,7 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="1*"/>
                         </Grid.RowDefinitions>
-
-                        <!-- Тариф -->
+                        
                         <Border Background="#2A2A2A"
                                 BorderBrush="#FF8C00"
                                 BorderThickness="2"
@@ -155,8 +150,7 @@
                                 </TextBlock>
                             </StackPanel>
                         </Border>
-
-                        <!-- Баланс -->
+                        
                         <Border Background="#2A2A2A"
                                 BorderBrush="#FF8C00"
                                 BorderThickness="2"
@@ -277,8 +271,7 @@
                             </Grid>
                         </Border>
 
-
-                        <!-- Остатки -->
+                        
                         <Border Background="#2A2A2A"
                                 BorderBrush="#FF8C00"
                                 BorderThickness="2"
@@ -410,28 +403,23 @@
                     </Button>
                 </Grid>
             </TabItem>
-
-            <!-- Вкладка "Услуги" -->
+            
             <TabItem Header="Услуги">
                 <Frame x:Name="ServicesFrame" NavigationUIVisibility="Hidden"/>
             </TabItem>
-
-            <!-- Вкладка "Тарифы" -->
+            
             <TabItem Header="Тарифы">
                 <Frame x:Name="RatesFrame" NavigationUIVisibility="Hidden"/>
             </TabItem>
-
-            <!-- Вкладка "Звонки" -->
+            
             <TabItem Header="Звонки">
                 <Frame x:Name="DetailingFrame" NavigationUIVisibility="Hidden"/>
             </TabItem>
-
-            <!-- Вкладка "Тарифы и услуги" -->
+            
             <TabItem Header="Тарифы и услуги">
                 <Frame x:Name="Detailing2Frame" NavigationUIVisibility="Hidden"/>
             </TabItem>
             
-            <!-- Вкладка "Списания" -->
             <TabItem Header="Списания">
                 <Frame x:Name="WriteOffsFrame" NavigationUIVisibility="Hidden"/>
             </TabItem>
