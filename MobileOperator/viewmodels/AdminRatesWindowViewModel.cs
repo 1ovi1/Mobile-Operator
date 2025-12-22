@@ -1,9 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Windows;
-using MobileOperator.Infrastructure;
 using MobileOperator.models;
 using MobileOperator.views;
 
@@ -12,6 +9,7 @@ namespace MobileOperator.viewmodels
     public class AdminRatesViewModel : INotifyPropertyChanged
     {
         private readonly Infrastructure.MobileOperator _context;
+
         public ObservableCollection<RateModel> Rates { get; set; }
 
         public AdminRatesViewModel(Infrastructure.MobileOperator context)
@@ -27,7 +25,7 @@ namespace MobileOperator.viewmodels
             var dbRates = _context.Rate.ToList();
             foreach (var rate in dbRates)
             {
-                Rates.Add(new RateModel(rate, context: _context));
+                Rates.Add(new RateModel(rate, _context));
             }
         }
 
@@ -35,7 +33,11 @@ namespace MobileOperator.viewmodels
         public RateModel SelectedRate
         {
             get => _selectedRate;
-            set { _selectedRate = value; OnPropertyChanged(); }
+            set
+            {
+                _selectedRate = value;
+                OnPropertyChanged();
+            }
         }
 
         private RelayCommand _addRateCommand;
@@ -45,7 +47,28 @@ namespace MobileOperator.viewmodels
             {
                 return _addRateCommand ?? (_addRateCommand = new RelayCommand(obj =>
                 {
-                    MessageBox.Show("Функционал добавления тарифа");
+                    AdminSelectedRateWindow rateWindow = new AdminSelectedRateWindow(_context);
+                    rateWindow.ShowDialog();
+                    LoadRates();
+                }));
+            }
+        }
+
+        private RelayCommand _viewRateCommand;
+        public RelayCommand ViewRateCommand
+        {
+            get
+            {
+                return _viewRateCommand ?? (_viewRateCommand = new RelayCommand(obj =>
+                {
+                    RateModel target = obj as RateModel ?? SelectedRate;
+
+                    if (target != null)
+                    {
+                        AdminSelectedRateWindow rateWindow = new AdminSelectedRateWindow(target.Id, _context);
+                        rateWindow.ShowDialog();
+                        LoadRates();
+                    }
                 }));
             }
         }

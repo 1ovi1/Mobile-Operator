@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using MobileOperator.Domain.Entities;
 
@@ -6,12 +7,13 @@ namespace MobileOperator.models
 {
     public class RateModel : INotifyPropertyChanged
     {
-        private Rate _rate = new Rate();
+        private Rate _rate;
         private readonly Infrastructure.MobileOperator _context;
 
         public RateModel(Infrastructure.MobileOperator context)
         {
             _context = context;
+            _rate = new Rate();
         }
 
         public RateModel(Rate r, Infrastructure.MobileOperator context)
@@ -43,63 +45,47 @@ namespace MobileOperator.models
         public bool Save()
         {
             if (_context == null) return false;
-
-            var r = _context.Rate.FirstOrDefault(x => x.Id == Id);
-            if (r != null)
+            
+            if (_rate.Id == 0)
             {
-                r.CityCost = this.CityCost;
-                r.ConnectionCost = this.ConnectionCost;
-                r.Corporate = this.Corporate;
-                r.Cost = this.Cost;
-                r.GB = this.GB;
-                r.GBCost = this.GBCost;
-                r.IntercityCost = this.IntercityCost;
-                r.InternationalCost = this.InternationalCost;
-                r.Minutes = this.Minutes;
-                r.Name = this.Name;
-                r.SMS = this.SMS;
-                r.SMSCost = this.SMSCost;
+                _context.Rate.Add(_rate);
             }
-            else
+            try
             {
-                r = new Rate()
-                {
-                    CityCost = this.CityCost,
-                    ConnectionCost = this.ConnectionCost,
-                    Corporate = this.Corporate,
-                    Cost = this.Cost,
-                    GB = this.GB,
-                    GBCost = this.GBCost,
-                    IntercityCost = this.IntercityCost,
-                    InternationalCost = this.InternationalCost,
-                    Minutes = this.Minutes,
-                    Name = this.Name,
-                    SMS = this.SMS,
-                    SMSCost = this.SMSCost
-                };
-                _context.Rate.Add(r);
+                return _context.SaveChanges() > 0;
             }
-
-            return _context.SaveChanges() > 0;
+            catch
+            {
+                return false;
+            }
         }
 
         public bool Remove()
         {
-            if (_context == null) return false;
-            var r = _context.Rate.FirstOrDefault(x => x.Id == Id);
-            if (r == null) return false;
+            if (_context == null || _rate.Id == 0) return false;
             
-            var rateHistory = _context.RateHistory.Where(i => i.RateId == r.Id).ToList();
-            _context.RateHistory.RemoveRange(rateHistory);
-            
-            var clients = _context.Client.Where(i => i.RateId == r.Id).ToList();
+            var rateHistory = _context.RateHistory.Where(i => i.RateId == _rate.Id).ToList();
+            if (rateHistory.Any())
+            {
+                _context.RateHistory.RemoveRange(rateHistory);
+            }
+
+            var clients = _context.Client.Where(i => i.RateId == _rate.Id).ToList();
             foreach (var client in clients)
             {
                 client.RateId = null;
             }
+
+            _context.Rate.Remove(_rate);
             
-            _context.Rate.Remove(r);
-            return _context.SaveChanges() > 0;
+            try
+            {
+                return _context.SaveChanges() > 0;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -1,9 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Windows;
-using MobileOperator.Infrastructure;
 using MobileOperator.models;
 using MobileOperator.views;
 
@@ -27,7 +24,7 @@ namespace MobileOperator.viewmodels
             var dbServices = _context.Service.ToList();
             foreach (var s in dbServices)
             {
-                Services.Add(new ServiceModel(s, context: _context));
+                Services.Add(new ServiceModel(s, _context));
             }
         }
 
@@ -35,9 +32,13 @@ namespace MobileOperator.viewmodels
         public ServiceModel SelectedService
         {
             get => _selectedService;
-            set { _selectedService = value; OnPropertyChanged(); }
+            set
+            {
+                _selectedService = value;
+                OnPropertyChanged();
+            }
         }
-
+        
         private RelayCommand _addServiceCommand;
         public RelayCommand AddServiceCommand
         {
@@ -45,7 +46,30 @@ namespace MobileOperator.viewmodels
             {
                 return _addServiceCommand ?? (_addServiceCommand = new RelayCommand(obj =>
                 {
-                    MessageBox.Show("Функционал добавления услуги");
+                    views.AdminSelectedServiceWindow serviceWindow = new views.AdminSelectedServiceWindow(_context);
+                    serviceWindow.ShowDialog();
+                    LoadServices();
+                }));
+            }
+        }
+        
+        private RelayCommand _viewServiceCommand;
+        public RelayCommand ViewServiceCommand
+        {
+            get
+            {
+                return _viewServiceCommand ?? (_viewServiceCommand = new RelayCommand(obj =>
+                {
+                    ServiceModel target = obj as ServiceModel ?? SelectedService;
+
+                    if (target != null)
+                    {
+                        views.AdminSelectedServiceWindow serviceWindow = new views.AdminSelectedServiceWindow(target.Id, _context);
+                        
+                        serviceWindow.ShowDialog();
+                        
+                        LoadServices();
+                    }
                 }));
             }
         }

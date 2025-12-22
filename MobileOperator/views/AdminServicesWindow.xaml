@@ -13,22 +13,29 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- <Button Grid.Row="0" Command="{Binding AddServiceCommand}"  -->
-        <!--         Content="Добавить услугу" HorizontalAlignment="Right" Margin="0,0,0,15" -->
-        <!--         Background="#FFD700" Foreground="#1A1A1A" FontWeight="Bold" FontSize="16" -->
-        <!--         Height="40" Padding="20,0" BorderThickness="0"> -->
-        <!--     <Button.Resources> -->
-        <!--         <Style TargetType="Border"> -->
-        <!--             <Setter Property="CornerRadius" Value="5"/> -->
-        <!--         </Style> -->
-        <!--     </Button.Resources> -->
-        <!-- </Button> -->
+        <Button Grid.Row="0" Command="{Binding AddServiceCommand}"
+                Content="Добавить услугу" HorizontalAlignment="Right" Margin="0,0,0,15"
+                Background="#FFD700" Foreground="#1A1A1A" FontWeight="Bold" FontSize="16"
+                Height="40" Padding="20,0" BorderThickness="0">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
 
         <Border Grid.Row="1" Background="#2A2A2A" BorderBrush="#FF8C00" BorderThickness="2" CornerRadius="15" Padding="10">
             <DataGrid ItemsSource="{Binding Services}" SelectedItem="{Binding SelectedService}"
                       AutoGenerateColumns="False" CanUserAddRows="False"
                       Background="#1A1A1A" RowBackground="#2A2A2A" AlternatingRowBackground="#1A1A1A"
                       Foreground="#FFA500" BorderBrush="#FF8C00" BorderThickness="0" HeadersVisibility="Column" GridLinesVisibility="None" FontSize="14">
+                
+                <DataGrid.InputBindings>
+                    <MouseBinding MouseAction="LeftDoubleClick" 
+                                  Command="{Binding ViewServiceCommand}" 
+                                  CommandParameter="{Binding SelectedService}"/>
+                </DataGrid.InputBindings>
+
                 <DataGrid.ColumnHeaderStyle>
                     <Style TargetType="DataGridColumnHeader">
                         <Setter Property="Background" Value="#FF8C00"/>
@@ -40,7 +47,7 @@
                 </DataGrid.ColumnHeaderStyle>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Название" Binding="{Binding Name}" Width="*" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Стоимость" Binding="{Binding Cost, StringFormat={}{0:C}}" Width="Auto" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Стоимость" Binding="{Binding Cost}" Width="Auto" IsReadOnly="True"/>
                     <DataGridTextColumn Header="Подключение" Binding="{Binding ConnectionCost}" Width="Auto" IsReadOnly="True"/>
                     <DataGridTextColumn Header="Условия" Binding="{Binding Conditions}" Width="2*" IsReadOnly="True"/>
                 </DataGrid.Columns>

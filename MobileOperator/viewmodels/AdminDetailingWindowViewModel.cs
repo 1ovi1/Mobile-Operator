@@ -63,7 +63,7 @@ namespace MobileOperator.viewmodels
                     Calls.Clear();
                     _context.ChangeTracker.Clear();
 
-                    Client clientDb = null; // Исправлен тип
+                    Client clientDb = null;
                     
                     if (!string.IsNullOrWhiteSpace(SearchNumber))
                     {

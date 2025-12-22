@@ -95,7 +95,7 @@
                       HeadersVisibility="Column" GridLinesVisibility="None"
                       ScrollViewer.VerticalScrollBarVisibility="Auto"
                       ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                      MaxHeight="450"> <!-- ограничение высоты для включения внутреннего скролла -->
+                      MaxHeight="450">
                 <DataGrid.ColumnHeaderStyle>
                     <Style TargetType="DataGridColumnHeader">
                         <Setter Property="Background" Value="#FF8C00"/>
