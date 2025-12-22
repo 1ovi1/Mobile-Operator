@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using MobileOperator.Infrastructure;
 using MobileOperator.models;
 using MobileOperator.views;
 
@@ -190,12 +191,6 @@ namespace MobileOperator.viewmodels
             }
         }
 
-        public RelayCommand OpenRates => new RelayCommand(obj => { });
-        public RelayCommand OpenServices => new RelayCommand(obj => { });
-        public RelayCommand OpenDetailing => new RelayCommand(obj => { });
-        public RelayCommand OpenDetailing2 => new RelayCommand(obj => { });
-        public RelayCommand LogOutCommand => new RelayCommand(obj => { });
-
         private RelayCommand payCommand;
         public RelayCommand PayCommand
         {
@@ -305,6 +300,31 @@ namespace MobileOperator.viewmodels
                        }));
             }
         }
+        
+        private RelayCommand _logOutCommand;
+        public RelayCommand LogOutCommand
+        {
+            get
+            {
+                return _logOutCommand ?? (_logOutCommand = new RelayCommand(obj =>
+                {
+                    UserSession.EndSession();
+                    Login login = new Login(_context);
+                    login.Show();
+        
+                    // Найти и закрыть главное окно пользователя
+                    foreach (Window window in Application.Current.Windows)
+                    {
+                        if (window is MainWindow)
+                        {
+                            window.Close();
+                            break;
+                        }
+                    }
+                }));
+            }
+        }
+        
 
         public event PropertyChangedEventHandler PropertyChanged;
 

@@ -28,7 +28,7 @@ namespace MobileOperator.viewmodels
         private void LoadClients()
         {
             Clients.Clear();
-            
+
             var dbClients = _context.Client
                 .Include(c => c.Rate)
                 .ToList();
@@ -37,13 +37,15 @@ namespace MobileOperator.viewmodels
             {
                 string name = "Неизвестно";
                 string type = "Неизвестно";
-                
+                int status = 0;
+
                 var ulEntity = _context.UL.FirstOrDefault(u => u.UserId == client.UserId);
-                
+
                 if (ulEntity != null)
                 {
                     name = ulEntity.OrganizationName;
                     type = "Юр. лицо";
+                    status = 2;
                 }
                 else
                 {
@@ -52,6 +54,7 @@ namespace MobileOperator.viewmodels
                     {
                         name = flEntity.FIO;
                         type = "Физ. лицо";
+                        status = 3;
                     }
                 }
 
@@ -63,6 +66,7 @@ namespace MobileOperator.viewmodels
                     Balance = (decimal)client.Balance,
                     RateName = client.Rate?.Name ?? "Нет тарифа",
                     ClientType = type,
+                    Status = status,
                     FullModel = new ClientModel(client, _context)
                 });
             }
@@ -94,21 +98,6 @@ namespace MobileOperator.viewmodels
             }
         }
 
-        private RelayCommand _viewClientCommand;
-        public RelayCommand ViewClientCommand
-        {
-            get
-            {
-                return _viewClientCommand ?? (_viewClientCommand = new RelayCommand(obj =>
-                {
-                    if (obj is ClientViewModel clientVm)
-                    {
-                        MessageBox.Show($"Открытие карточки клиента: {clientVm.NameOrOrg}");
-                    }
-                }));
-            }
-        }
-
         private RelayCommand _addClientCommand;
         public RelayCommand AddClientCommand
         {
@@ -116,7 +105,30 @@ namespace MobileOperator.viewmodels
             {
                 return _addClientCommand ?? (_addClientCommand = new RelayCommand(obj =>
                 {
-                     MessageBox.Show("Добавление нового клиента");
+                    ViewClientWindow window = new ViewClientWindow(_context);
+                    window.ShowDialog();
+
+                    LoadClients();
+                }));
+            }
+        }
+
+        private RelayCommand _viewClientCommand;
+        public RelayCommand ViewClientCommand
+        {
+            get
+            {
+                return _viewClientCommand ?? (_viewClientCommand = new RelayCommand(obj =>
+                {
+                    var clientVm = obj as ClientViewModel ?? SelectedClient;
+
+                    if (clientVm != null)
+                    {
+                        ViewClientWindow window = new ViewClientWindow(clientVm.Id, clientVm.Status, _context);
+                        window.ShowDialog();
+
+                        LoadClients();
+                    }
                 }));
             }
         }
@@ -129,6 +141,7 @@ namespace MobileOperator.viewmodels
     }
 
     // костыль
+    // не было выборо, только он меня спас уже......
     public class ClientViewModel
     {
         public int Id { get; set; }
@@ -137,6 +150,7 @@ namespace MobileOperator.viewmodels
         public decimal Balance { get; set; }
         public string RateName { get; set; }
         public string ClientType { get; set; }
+        public int Status { get; set; }
         public ClientModel FullModel { get; set; }
     }
 }
