@@ -5,10 +5,10 @@ namespace MobileOperator.views
 {
     public partial class WriteOffsPage : Page
     {
-        public WriteOffsPage(int userId, int status)
+        public WriteOffsPage(int userId, int status, Infrastructure.MobileOperator context)
         {
             InitializeComponent();
-            DataContext = new WriteOffsViewModel(userId, status);
+            DataContext = new WriteOffsViewModel(userId, status, context);
         }
     }
 }

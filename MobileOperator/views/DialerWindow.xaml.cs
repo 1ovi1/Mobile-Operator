@@ -4,7 +4,7 @@ namespace MobileOperator.views
 {
     public partial class DialerWindow : Window
     {
-        public DialerWindow(int userId)
+        public DialerWindow(int userId, Infrastructure.MobileOperator context)
         {
             InitializeComponent();
             var viewModel = new viewmodels.DialerViewModel(userId);
@@ -12,7 +12,7 @@ namespace MobileOperator.views
             viewModel.CallRequested += (phoneNumber) =>
             {
                 Close();
-                var callWindow = new CallWindow(userId, phoneNumber);
+                var callWindow = new CallWindow(userId, phoneNumber, context);
                 callWindow.Show();
             };
             DataContext = viewModel;

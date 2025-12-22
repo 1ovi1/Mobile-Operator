@@ -21,15 +21,16 @@ namespace MobileOperator.viewmodels
         private ClientModel client;
         private RateModel rate;
 
-        private readonly Infrastructure.MobileOperator _context = new Infrastructure.MobileOperator(App.DbOptions);
+        private readonly Infrastructure.MobileOperator _context;
 
         private ServiceListModel allServices;
         public ObservableCollection<ServiceModel> Services { get; set; }
 
-        public AppViewModel(int userId, int status)
+        public AppViewModel(int userId, int status, Infrastructure.MobileOperator context)
         {
             this.userId = userId;
             this.status = status;
+            _context = context;
 
             allServices = new ServiceListModel(_context);
 
@@ -53,9 +54,8 @@ namespace MobileOperator.viewmodels
         {
             try
             {
-                using (var ctx = new Infrastructure.MobileOperator(App.DbOptions))
                 {
-                    var dbData = ctx.Client
+                    var dbData = _context.Client
                         .Where(c => c.UserId == userId)
                         .Select(c => new { c.Balance, c.RateId, c.Minutes, c.SMS, c.GB })
                         .FirstOrDefault();
@@ -78,7 +78,7 @@ namespace MobileOperator.viewmodels
                         if (client.RateId != dbData.RateId)
                         {
                             client.RateId = (int)dbData.RateId;
-                            rate = new RateModel(client.RateId, ctx);
+                            rate = new RateModel(client.RateId, _context);
 
                             OnPropertyChanged("Rate");
                             OnPropertyChanged("Cost");
@@ -86,16 +86,16 @@ namespace MobileOperator.viewmodels
                         }
                     }
 
-                    RefreshServices(ctx);
+                    RefreshServices(_context);
                 }
             }
             catch { }
         }
 
 
-        private void RefreshServices(Infrastructure.MobileOperator ctx)
+        private void RefreshServices(Infrastructure.MobileOperator _context)
         {
-            var currentServices = ctx.ServiceHistory
+            var currentServices = _context.ServiceHistory
                 .Where(h => h.ClientId == client.Id && h.TillDate == null)
                 .Select(h => h.ServiceId)
                 .ToList();
@@ -113,7 +113,7 @@ namespace MobileOperator.viewmodels
             {
                 if (!Services.Any(s => s.Id == serviceId))
                 {
-                    Services.Add(new ServiceModel(serviceId, ctx));
+                    Services.Add(new ServiceModel(serviceId, _context));
                 }
             }
 

@@ -8,10 +8,10 @@ namespace MobileOperator.views
     /// </summary>
     public partial class ChangeRateWindow : Window
     {
-        public ChangeRateWindow(int userId)
+        public ChangeRateWindow(int userId, Infrastructure.MobileOperator context)
         {
             InitializeComponent();
-            DataContext = new viewmodels.ChangeRateWindowViewModel(userId);
+            DataContext = new viewmodels.ChangeRateWindowViewModel(userId, context);
         }
     }
 }

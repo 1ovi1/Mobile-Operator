@@ -71,8 +71,7 @@
                             FontSize="16" 
                             FontWeight="Bold"
                             Height="40" 
-                            BorderThickness="0"
-                            Click="ChangeRateButton_Click"/>
+                            BorderThickness="0"/>
                 </StackPanel>
             </Border>
             

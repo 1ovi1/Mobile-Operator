@@ -26,9 +26,9 @@ namespace MobileOperator.viewmodels
         private string _searchNumber;
         private string _foundClientNumber = "";
 
-        public AdminDetailingViewModel()
+        public AdminDetailingViewModel(Infrastructure.MobileOperator context)
         {
-            _context = new Infrastructure.MobileOperator(App.DbOptions);
+            _context = context;
             Calls = new ObservableCollection<CallModel>();
         }
 

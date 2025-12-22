@@ -8,10 +8,10 @@ namespace MobileOperator.views
     /// </summary>
     public partial class ServicesWindow : Page
     {
-        public ServicesWindow(int userId, int status)
+        public ServicesWindow(int userId, int status, Infrastructure.MobileOperator context)
         {
             InitializeComponent();
-            DataContext = new ServicesWindowViewModel(userId, status);
+            DataContext = new ServicesWindowViewModel(userId, status, context);
         }
     }
 }

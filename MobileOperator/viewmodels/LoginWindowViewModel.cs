@@ -14,10 +14,10 @@ namespace MobileOperator.viewmodels
         private Window _window;
         private readonly Infrastructure.MobileOperator _context;
 
-        public LoginWindowViewModel(Window window)
+        public LoginWindowViewModel(Window window, Infrastructure.MobileOperator context)
         {
             _window = window;
-            _context = new Infrastructure.MobileOperator(App.DbOptions);
+            _context = context;
         }
 
         private string _username;
@@ -90,7 +90,7 @@ namespace MobileOperator.viewmodels
                 
                 UserSession.StartSession(client.UserId, statusId, "Client");
                 
-                MainWindow main = new MainWindow(client.UserId, statusId);
+                MainWindow main = new MainWindow(client.UserId, statusId, _context);
                 main.Show();
                 _window.Close();
             }
@@ -110,7 +110,7 @@ namespace MobileOperator.viewmodels
             {
                 UserSession.StartSession(admin.UserId, 0, "Admin");
 
-                AdminMainWindow main = new AdminMainWindow();
+                AdminMainWindow main = new AdminMainWindow(_context);
                 main.Show();
                 _window.Close();
             }

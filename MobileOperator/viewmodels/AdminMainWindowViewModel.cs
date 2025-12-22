@@ -17,10 +17,10 @@ namespace MobileOperator.viewmodels
 
         public ObservableCollection<ClientViewModel> Clients { get; set; }
 
-        public AdminMainWindowViewModel(Window window)
+        public AdminMainWindowViewModel(Window window, Infrastructure.MobileOperator context)
         {
             _window = window;
-            _context = new Infrastructure.MobileOperator(App.DbOptions);
+            _context = context;
             Clients = new ObservableCollection<ClientViewModel>();
             LoadClients();
         }
@@ -87,7 +87,7 @@ namespace MobileOperator.viewmodels
                 return _logOutCommand ?? (_logOutCommand = new RelayCommand(obj =>
                 {
                     UserSession.EndSession();
-                    Login login = new Login();
+                    Login login = new Login(_context);
                     login.Show();
                     _window.Close();
                 }));

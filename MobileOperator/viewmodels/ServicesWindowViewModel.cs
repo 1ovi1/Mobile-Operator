@@ -9,23 +9,23 @@ namespace MobileOperator.viewmodels
     class ServicesWindowViewModel : INotifyPropertyChanged
     {
         private int userId, status;
-        
-        private readonly Infrastructure.MobileOperator _context = new Infrastructure.MobileOperator(App.DbOptions);
+
+        private readonly Infrastructure.MobileOperator _context;
 
         private ServiceListModel services;
         private ClientModel client;
         
         public ClientModel Client => client;
-        public Infrastructure.MobileOperator Context => _context;
         public ServiceListModel Services => services;
 
         public ObservableCollection<ServiceViewModel> ConnectionServices { get; set; }
         public ObservableCollection<ServiceViewModel> AvailableServices { get; set; }
         
-        public ServicesWindowViewModel(int userId, int status)
+        public ServicesWindowViewModel(int userId, int status, Infrastructure.MobileOperator context)
         {
             this.userId = userId;
             this.status = status;
+            _context = context;
             
             services = new ServiceListModel(_context);
 
@@ -38,7 +38,7 @@ namespace MobileOperator.viewmodels
             AvailableServices = new ObservableCollection<ServiceViewModel> { };
 
             foreach (int serviseId in services.ClientServices(userId))
-                ConnectionServices.Add(new ServiceViewModel(serviseId) { ClientId = userId, ServicesList = this });
+                ConnectionServices.Add(new ServiceViewModel(serviseId, _context) { ClientId = userId, ServicesList = this });
 
             bool flag;
             foreach (ServiceModel service in services.AllServices)
@@ -48,7 +48,7 @@ namespace MobileOperator.viewmodels
                     if (service.Id == serviseId)
                         flag = true;
                 if (!flag)
-                    AvailableServices.Add(new ServiceViewModel()
+                    AvailableServices.Add(new ServiceViewModel(_context)
                     {
                         Name = service.Name,
                         Cost = service.Cost,

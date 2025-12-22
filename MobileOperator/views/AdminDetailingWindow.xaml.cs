@@ -5,10 +5,10 @@ namespace MobileOperator.views
 {
     public partial class AdminDetailingPage : Page
     {
-        public AdminDetailingPage()
+        public AdminDetailingPage(Infrastructure.MobileOperator context)
         {
             InitializeComponent();
-            DataContext = new AdminDetailingViewModel();
+            DataContext = new AdminDetailingViewModel(context);
         }
     }
 }

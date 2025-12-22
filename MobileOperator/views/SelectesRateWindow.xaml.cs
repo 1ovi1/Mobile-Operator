@@ -8,10 +8,10 @@ namespace MobileOperator.views
     /// </summary>
     public partial class SelectesRateWindow : Window
     {
-        public SelectesRateWindow(int userId, int rateId)
+        public SelectesRateWindow(int userId, int rateId, Infrastructure.MobileOperator context)
         {
             InitializeComponent();
-            DataContext = new ViewRateWindowViewModel(userId, rateId, this);
+            DataContext = new ViewRateWindowViewModel(userId, rateId, this, context);
         }
     }
 }

@@ -9,22 +9,19 @@ namespace MobileOperator.viewmodels
 {
     class ServiceViewModel : INotifyPropertyChanged
     {
-        private readonly Infrastructure.MobileOperator _context = new Infrastructure.MobileOperator(App.DbOptions);
+        private readonly Infrastructure.MobileOperator _context;
 
         private ServiceModel service;
 
-        public ServiceViewModel()
+        public ServiceViewModel(Infrastructure.MobileOperator context)
         {
+            _context = context;
             service = new ServiceModel(_context);
         }
 
-        public ServiceViewModel(ServiceModel s)
+        public ServiceViewModel(int id, Infrastructure.MobileOperator context)
         {
-            service = s;
-        }
-
-        public ServiceViewModel(int id)
-        {
+            _context = context;
             service = new ServiceModel(id, _context);
         }
 

@@ -11,8 +11,8 @@ namespace MobileOperator.viewmodels
         private int userId, status;
         private RateModel rate;
         private ClientModel client;
-        
-        private readonly Infrastructure.MobileOperator _context = new Infrastructure.MobileOperator(App.DbOptions);
+
+        private readonly Infrastructure.MobileOperator _context;
 
         private RateListModel allRates;
         
@@ -20,10 +20,11 @@ namespace MobileOperator.viewmodels
         
         public ObservableCollection<RateModel> Rates { get; set; }
 
-        public RateWindowViewModel(int userId, int status)
+        public RateWindowViewModel(int userId, int status, Infrastructure.MobileOperator context)
         {
             this.userId = userId;
             this.status = status;
+            _context = context;
             
             selectRate = new RateModel(_context);
 
@@ -161,6 +162,20 @@ namespace MobileOperator.viewmodels
             {
                 if (value == "Корпоративный") rate.Corporate = true;
                 else if (value == "Некорпоративный") rate.Corporate = false;
+            }
+        }
+        
+        private RelayCommand changeRateCommand;
+        public RelayCommand ChangeRateCommand
+        {
+            get
+            {
+                return changeRateCommand ??
+                       (changeRateCommand = new RelayCommand(obj =>
+                       {
+                           ChangeRateWindow changeRateWindow = new ChangeRateWindow(userId, _context);
+                           changeRateWindow.Show();
+                       }));
             }
         }
 

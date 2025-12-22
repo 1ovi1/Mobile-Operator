@@ -19,15 +19,16 @@ namespace MobileOperator.viewmodels
         private Detailing2Model detailing;
         private DateTime from = new DateTime(2025, 01, 01);
         private DateTime till = DateTime.Now;
-        private readonly Infrastructure.MobileOperator _context = new Infrastructure.MobileOperator(App.DbOptions);
+        private readonly Infrastructure.MobileOperator _context;
         
         public ObservableCollection<RateHistoryModel> Rates { get; set; }
         public ObservableCollection<ServiceHistoryModel> Services { get; set; }
 
-        public DetailingWindow2ViewModel(int userId, int status)
+        public DetailingWindow2ViewModel(int userId, int status, Infrastructure.MobileOperator context)
         {
             this.userId = userId;
             this.status = status;
+            _context = context;
 
             if (status == 2)
                 client = new ULModel(userId, _context);

@@ -14,13 +14,14 @@ namespace MobileOperator.viewmodels
         private int userId;
         private ClientModel client;
         private RateListModel allRates;
-        private readonly Infrastructure.MobileOperator _context = new Infrastructure.MobileOperator(App.DbOptions);
+        private readonly Infrastructure.MobileOperator _context;
 
         public ObservableCollection<RateViewModel> Rates { get; set; }
 
-        public ChangeRateWindowViewModel(int userId)
+        public ChangeRateWindowViewModel(int userId, Infrastructure.MobileOperator context)
         {
             this.userId = userId;
+            _context = context;
 
             client = new ClientModel(userId, _context);
             allRates = new RateListModel(_context);
@@ -37,7 +38,7 @@ namespace MobileOperator.viewmodels
 
         private void AddRateToCollection(RateModel rate)
         {
-            Rates.Add(new RateViewModel()
+            Rates.Add(new RateViewModel(_context)
             {
                 Name = rate.Name,
                 ConnectionCost = rate.ConnectionCost,

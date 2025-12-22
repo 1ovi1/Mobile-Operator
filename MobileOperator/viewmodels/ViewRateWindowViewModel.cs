@@ -12,14 +12,15 @@ namespace MobileOperator.viewmodels
         private RateModel rate;
         private ClientModel client;
         private Window window;
-        
-        private readonly Infrastructure.MobileOperator _context = new Infrastructure.MobileOperator(App.DbOptions);
 
-        public ViewRateWindowViewModel(int userId, int rateId, Window window)
+        private readonly Infrastructure.MobileOperator _context;
+
+        public ViewRateWindowViewModel(int userId, int rateId, Window window, Infrastructure.MobileOperator context)
         {
             this.rateId = rateId;
             this.userId = userId;
             this.window = window;
+            _context = context;
             
             rate = new RateModel(rateId, _context);
             client = new ClientModel(userId, _context);

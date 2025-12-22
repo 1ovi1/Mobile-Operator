@@ -17,15 +17,17 @@ public class CallViewModel : INotifyPropertyChanged
     private DispatcherTimer _durationTimer;
     private TimeSpan _elapsedTime;
     private bool _isConnected = false;
+    private readonly MobileOperator.Infrastructure.MobileOperator _context;
 
     public event Action CloseRequested;
 
-    public CallViewModel(int userId, string phoneNumber)
+    public CallViewModel(int userId, string phoneNumber, Infrastructure.MobileOperator context)
     {
         _userId = userId;
         _phoneNumber = phoneNumber;
         CallStatus = "Набор номера...";
         CallDuration = "00:00";
+        _context = context;
         
         _connectionTimer = new DispatcherTimer();
         _connectionTimer.Interval = TimeSpan.FromSeconds(3);
@@ -94,16 +96,15 @@ public class CallViewModel : INotifyPropertyChanged
     {
         try
         {
-            using (var context = new MobileOperator.Infrastructure.MobileOperator(App.DbOptions))
             {
-                var client = context.Client.FirstOrDefault(c => c.UserId == _userId);
+                var client = _context.Client.FirstOrDefault(c => c.UserId == _userId);
 
                 if (client != null)
                 {
                     Random rnd = new Random();
                     int callType = rnd.Next(1, 4);
                     
-                    var rate = context.Rate.FirstOrDefault(r => r.Id == client.RateId);
+                    var rate = _context.Rate.FirstOrDefault(r => r.Id == client.RateId);
                     decimal pricePerMinute = 0;
                     
                     if (rate != null)
@@ -147,7 +148,7 @@ public class CallViewModel : INotifyPropertyChanged
                             Category = "Звонок",
                             Description = $"Исходящий звонок на {PhoneNumber}. Длительность: {_elapsedTime:mm\\:ss}"
                         };
-                        context.WriteOff.Add(writeOff);
+                        _context.WriteOff.Add(writeOff);
                     }
 
                     var newCall = new MobileOperator.Domain.Entities.Call
@@ -161,8 +162,8 @@ public class CallViewModel : INotifyPropertyChanged
                         Cost = callCost
                     };
 
-                    context.Call.Add(newCall);
-                    context.SaveChanges();
+                    _context.Call.Add(newCall);
+                    _context.SaveChanges();
                 }
             }
         }

@@ -14,9 +14,9 @@ namespace MobileOperator.viewmodels
         private readonly Infrastructure.MobileOperator _context;
         public ObservableCollection<ServiceModel> Services { get; set; }
 
-        public AdminServicesViewModel()
+        public AdminServicesViewModel(Infrastructure.MobileOperator context)
         {
-            _context = new Infrastructure.MobileOperator(App.DbOptions);
+            _context = context;
             Services = new ObservableCollection<ServiceModel>();
             LoadServices();
         }

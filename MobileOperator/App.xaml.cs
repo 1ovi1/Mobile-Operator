@@ -48,7 +48,9 @@ namespace MobileOperator
             //     MessageBox.Show($"Ошибка подключения:\n{ex.Message}", "Исключение", MessageBoxButton.OK, MessageBoxImage.Error);
             // }
             
-            var dialog = new Login();
+            var _context = new Infrastructure.MobileOperator(App.DbOptions);
+            
+            var dialog = new Login(_context);
             dialog.ShowDialog();
         }
 

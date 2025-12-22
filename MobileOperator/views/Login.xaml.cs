@@ -5,10 +5,10 @@ namespace MobileOperator.views
 {
     public partial class Login : Window
     {
-        public Login()
+        public Login(Infrastructure.MobileOperator context)
         {
             InitializeComponent();
-            DataContext = new LoginWindowViewModel(this);
+            DataContext = new LoginWindowViewModel(this, context);
         }
     }
 }

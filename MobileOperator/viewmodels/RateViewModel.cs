@@ -9,13 +9,14 @@ namespace MobileOperator.viewmodels
 {
     class RateViewModel : INotifyPropertyChanged
     {
-        private readonly Infrastructure.MobileOperator _context = new Infrastructure.MobileOperator(App.DbOptions);
+        private readonly Infrastructure.MobileOperator _context;
 
         private RateModel rate;
 
-        public RateViewModel()
+        public RateViewModel(Infrastructure.MobileOperator context)
         {
-            rate = new RateModel(_context);
+            _context = context;
+            rate = new RateModel(context);
         }
 
         public RateViewModel(RateModel r)
@@ -23,8 +24,9 @@ namespace MobileOperator.viewmodels
             rate = r;
         }
 
-        public RateViewModel(int id)
+        public RateViewModel(int id, Infrastructure.MobileOperator context)
         {
+            _context = context;
             rate = new RateModel(id, _context);
         }
 

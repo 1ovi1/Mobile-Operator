@@ -14,9 +14,9 @@ namespace MobileOperator.viewmodels
         private readonly Infrastructure.MobileOperator _context;
         public ObservableCollection<RateModel> Rates { get; set; }
 
-        public AdminRatesViewModel()
+        public AdminRatesViewModel(Infrastructure.MobileOperator context)
         {
-            _context = new Infrastructure.MobileOperator(App.DbOptions);
+            _context = context;
             Rates = new ObservableCollection<RateModel>();
             LoadRates();
         }

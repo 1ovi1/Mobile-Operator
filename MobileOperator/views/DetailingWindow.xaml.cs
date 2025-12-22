@@ -8,10 +8,10 @@ namespace MobileOperator.views
     /// </summary>
     public partial class DetailingWindow : Page
     {
-        public DetailingWindow(int userId, int status)
+        public DetailingWindow(int userId, int status, Infrastructure.MobileOperator context)
         {
             InitializeComponent();
-            DataContext = new DetailingWindowViewModel(userId, status);
+            DataContext = new DetailingWindowViewModel(userId, status, context);
         }
     }
 }
