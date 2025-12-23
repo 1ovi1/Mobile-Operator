@@ -2,6 +2,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using System.Windows.Threading;
+using MobileOperator.Domain.Entities;
 using MobileOperator.Infrastructure;
 using MobileOperator.views;
 
@@ -140,7 +141,7 @@ public class CallViewModel : INotifyPropertyChanged
                     
                     if (callCost > 0)
                     {
-                        var writeOff = new MobileOperator.Domain.Entities.WriteOff
+                        var writeOff = new WriteOff()
                         {
                             ClientId = client.UserId,
                             Amount = callCost,
@@ -151,7 +152,7 @@ public class CallViewModel : INotifyPropertyChanged
                         _context.WriteOff.Add(writeOff);
                     }
 
-                    var newCall = new MobileOperator.Domain.Entities.Call
+                    var newCall = new Call()
                     {
                         CallerId = client.UserId,
                         CallerNumber = client.Number,

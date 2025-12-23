@@ -1,7 +1,10 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Threading;
 using MobileOperator.Infrastructure;
 using MobileOperator.models;
 using MobileOperator.views;
@@ -23,6 +26,7 @@ namespace MobileOperator.viewmodels
         private RateModel rate;
 
         private readonly Infrastructure.MobileOperator _context;
+        private readonly DispatcherTimer _timer;
 
         private ServiceListModel allServices;
         public ObservableCollection<ServiceModel> Services { get; set; }
@@ -49,49 +53,48 @@ namespace MobileOperator.viewmodels
             }
 
             BalanceUpdated += RefreshBalance;
+            
+            _timer = new DispatcherTimer();
+            _timer.Interval = TimeSpan.FromSeconds(2);
+            _timer.Tick += (s, e) => RefreshBalance();
+            _timer.Start();
         }
 
         private void RefreshBalance()
         {
             try
             {
+                _context.ChangeTracker.Clear();
+                
+                var dbClient = _context.Client.FirstOrDefault(c => c.UserId == userId);
+
+                if (dbClient != null)
                 {
-                    var dbData = _context.Client
-                        .Where(c => c.UserId == userId)
-                        .Select(c => new { c.Balance, c.RateId, c.Minutes, c.SMS, c.GB })
-                        .FirstOrDefault();
+                    client.Balance = (decimal)dbClient.Balance;
+                    client.Minutes = dbClient.Minutes;
+                    client.SMS = dbClient.SMS ?? 0;
+                    client.GB = dbClient.GB ?? 0;
 
-                    if (dbData != null)
+                    if (client.RateId != (int)dbClient.RateId)
                     {
-
-                        client.Balance = (decimal)dbData.Balance;
-                        OnPropertyChanged("Balance");
-
-                        client.Minutes = dbData.Minutes;
-                        OnPropertyChanged("Minutes");
-
-                        client.SMS = dbData.SMS ?? 0;
-                        OnPropertyChanged("SMS");
-
-                        client.GB = dbData.GB ?? 0;
-                        OnPropertyChanged("GB");
-
-                        if (client.RateId != dbData.RateId)
-                        {
-                            client.RateId = (int)dbData.RateId;
-                            rate = new RateModel(client.RateId, _context);
-
-                            OnPropertyChanged("Rate");
-                            OnPropertyChanged("Cost");
-                            OnPropertyChanged("Corporate");
-                        }
+                        client.RateId = (int)dbClient.RateId;
+                        rate = new RateModel(client.RateId, _context);
+                        
+                        OnPropertyChanged("Rate");
+                        OnPropertyChanged("Cost");
+                        OnPropertyChanged("Corporate");
                     }
-
-                    RefreshServices(_context);
                 }
+                RefreshServices(_context);
+
+                OnPropertyChanged("Balance");
+                OnPropertyChanged("Minutes");
+                OnPropertyChanged("GB");
+                OnPropertyChanged("SMS");
             }
             catch { }
         }
+
 
 
         private void RefreshServices(Infrastructure.MobileOperator _context)
@@ -239,7 +242,7 @@ namespace MobileOperator.viewmodels
                            if (client.Balance >= rateCost)
                            {
                                client.Balance -= rateCost;
-                               
+
                                _context.WriteOff.Add(new MobileOperator.Domain.Entities.WriteOff
                                {
                                    ClientId = userId,
@@ -248,7 +251,7 @@ namespace MobileOperator.viewmodels
                                    Category = "Абонентская плата",
                                    Description = $"Плата за тариф '{rate.Name}'"
                                });
-                               
+
                                client.Minutes = rate.Minutes;
                                client.GB = rate.GB;
                                client.SMS = rate.SMS;
@@ -259,7 +262,7 @@ namespace MobileOperator.viewmodels
                                client.GB = 0;
                                client.SMS = 0;
                            }
-                           
+
                            var servicesToProcess = Services.ToList();
 
                            foreach (var service in servicesToProcess)
@@ -285,7 +288,7 @@ namespace MobileOperator.viewmodels
                                    }
                                }
                            }
-                           
+
                            if (client.Save())
                            {
                                OnPropertyChanged("Balance");
@@ -300,7 +303,7 @@ namespace MobileOperator.viewmodels
                        }));
             }
         }
-        
+
         private RelayCommand _logOutCommand;
         public RelayCommand LogOutCommand
         {
@@ -308,11 +311,12 @@ namespace MobileOperator.viewmodels
             {
                 return _logOutCommand ?? (_logOutCommand = new RelayCommand(obj =>
                 {
+                    _timer.Stop();
+
                     UserSession.EndSession();
                     Login login = new Login(_context);
                     login.Show();
-        
-                    // Найти и закрыть главное окно пользователя
+
                     foreach (Window window in Application.Current.Windows)
                     {
                         if (window is MainWindow)
@@ -324,7 +328,7 @@ namespace MobileOperator.viewmodels
                 }));
             }
         }
-        
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 

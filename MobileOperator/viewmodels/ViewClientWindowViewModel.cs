@@ -197,6 +197,7 @@ namespace MobileOperator.viewmodels
                     if (_client.Save())
                     {
                         MessageBox.Show("Сохранение прошло успешно!");
+                        AppViewModel.UpdateBalance();
                         _window.Close();
                     }
                     else

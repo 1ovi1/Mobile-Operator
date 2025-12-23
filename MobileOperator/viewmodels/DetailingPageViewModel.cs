@@ -16,8 +16,8 @@ namespace MobileOperator.viewmodels
         private int userId, status;
         private ClientModel client;
         private DetailingModel detailing;
-        private DateTime from = new DateTime(2025, 01, 01);
-        private DateTime till = DateTime.Now;
+        private DateTime _from = new DateTime(2025, 01, 01);
+        private DateTime _till = DateTime.Now;
         private readonly Infrastructure.MobileOperator _context;
         public ObservableCollection<CallModel> Calls { get; set; }
 
@@ -37,13 +37,13 @@ namespace MobileOperator.viewmodels
 
         public DateTime From
         {
-            get { return from; }
-            set { from = value; OnPropertyChanged("From"); }
+            get { return _from; }
+            set { _from = value; OnPropertyChanged("From"); }
         }
         public DateTime Till
         {
-            get { return till; }
-            set { till = value; OnPropertyChanged("Till"); }
+            get { return _till; }
+            set { _till = value; OnPropertyChanged("Till"); }
         }
 
         private RelayCommand getDetailingCommand;
@@ -58,8 +58,8 @@ namespace MobileOperator.viewmodels
                       
                       _context.ChangeTracker.Clear();
 
-                      var fromUtc = from.ToUniversalTime();
-                      var tillUtc = till.ToUniversalTime();
+                      var fromUtc = _from.ToUniversalTime();
+                      var tillUtc = _till.ToUniversalTime();
 
                       var clientDb = _context.Client.FirstOrDefault(c => c.UserId == userId);
                       if (clientDb == null) return;
@@ -91,7 +91,7 @@ namespace MobileOperator.viewmodels
 
                           workSheet.Cells[1, 1] = "Детализация звонков";
                           workSheet.Cells[2, 1] = $"Клиент: {client.Number}"; 
-                          workSheet.Cells[3, 1] = $"Период: {from:dd.MM.yyyy} - {till:dd.MM.yyyy}";
+                          workSheet.Cells[3, 1] = $"Период: {_from:dd.MM.yyyy} - {_till:dd.MM.yyyy}";
 
                           int startRow = 5;
                           workSheet.Cells[startRow, 1] = "Собеседник";
@@ -153,7 +153,7 @@ namespace MobileOperator.viewmodels
                           Word.Document document = application.ActiveDocument;
                           
                           Word.Paragraph headerPara = document.Content.Paragraphs.Add(ref missing);
-                          headerPara.Range.Text = $"Детализация звонков\nКлиент: {client.Number}\nПериод: {from:dd.MM.yyyy} - {till:dd.MM.yyyy}\n";
+                          headerPara.Range.Text = $"Детализация звонков\nКлиент: {client.Number}\nПериод: {_from:dd.MM.yyyy} - {_till:dd.MM.yyyy}\n";
                           headerPara.Range.InsertParagraphAfter();
 
                           Word.Range range = document.Range(); 

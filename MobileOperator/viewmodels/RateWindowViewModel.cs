@@ -1,6 +1,9 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Windows.Threading;
 using MobileOperator.models;
 using MobileOperator.views;
 
@@ -13,11 +16,12 @@ namespace MobileOperator.viewmodels
         private ClientModel client;
 
         private readonly Infrastructure.MobileOperator _context;
+        private readonly DispatcherTimer _timer;
 
         private RateListModel allRates;
-        
-        RateModel selectRate; 
-        
+
+        RateModel selectRate;
+
         public ObservableCollection<RateModel> Rates { get; set; }
 
         public RateWindowViewModel(int userId, int status, Infrastructure.MobileOperator context)
@@ -25,7 +29,7 @@ namespace MobileOperator.viewmodels
             this.userId = userId;
             this.status = status;
             _context = context;
-            
+
             selectRate = new RateModel(_context);
 
             allRates = new RateListModel(_context);
@@ -43,23 +47,34 @@ namespace MobileOperator.viewmodels
                 foreach (RateModel rate in allRates.AllNotCorporateRates)
                     AddRateToCollection(rate);
             }
-            
+
             rate = new RateModel(client.RateId, _context);
-            
+
             AppViewModel.BalanceUpdated += RefreshData;
+            
+            _timer = new DispatcherTimer();
+            _timer.Interval = TimeSpan.FromSeconds(2);
+            _timer.Tick += (s, e) => RefreshData();
+            _timer.Start();
         }
-        
+
         private void RefreshData()
         {
             try
             {
-                if (client.Entity != null)
+                _context.ChangeTracker.Clear();
+
+                var dbClient = _context.Client.FirstOrDefault(c => c.UserId == userId);
+                if (dbClient != null)
                 {
-                    _context.Entry(client.Entity).Reload();
+                    if (client.RateId != (int)dbClient.RateId)
+                    {
+                        client.RateId = (int)dbClient.RateId;
+                    }
                 }
-                
+
                 rate = new RateModel(client.RateId, _context);
-                
+
                 OnPropertyChanged("Rate");
                 OnPropertyChanged("Cost");
                 OnPropertyChanged("Minutes");
@@ -100,7 +115,7 @@ namespace MobileOperator.viewmodels
             get { return selectRate; }
             set { selectRate = value; }
         }
-        
+
         public string Rate
         {
             get { return rate.Name; }
@@ -164,7 +179,7 @@ namespace MobileOperator.viewmodels
                 else if (value == "Некорпоративный") rate.Corporate = false;
             }
         }
-        
+
         private RelayCommand changeRateCommand;
         public RelayCommand ChangeRateCommand
         {
