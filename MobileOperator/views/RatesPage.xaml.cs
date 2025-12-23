@@ -7,11 +7,11 @@ namespace MobileOperator.views
     /// <summary>
     /// Логика взаимодействия для RatesWindow.xaml
     /// </summary>
-    public partial class RatesWindow : Page
+    public partial class RatesPage : Page
     {
         private int userId;
         private int status;
-        public RatesWindow(int userId, int status, Infrastructure.MobileOperator context)
+        public RatesPage(int userId, int status, Infrastructure.MobileOperator context)
         {
             InitializeComponent();
             this.userId = userId;

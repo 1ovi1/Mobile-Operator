@@ -11,7 +11,7 @@ using Word = Microsoft.Office.Interop.Word;
 
 namespace MobileOperator.viewmodels
 {
-    class DetailingWindowViewModel : INotifyPropertyChanged
+    class DetailingPageViewModel : INotifyPropertyChanged
     {
         private int userId, status;
         private ClientModel client;
@@ -21,7 +21,7 @@ namespace MobileOperator.viewmodels
         private readonly Infrastructure.MobileOperator _context;
         public ObservableCollection<CallModel> Calls { get; set; }
 
-        public DetailingWindowViewModel(int userId, int status, Infrastructure.MobileOperator context)
+        public DetailingPageViewModel(int userId, int status, Infrastructure.MobileOperator context)
         {
             this.userId = userId;
             this.status = status;

@@ -6,12 +6,12 @@ namespace MobileOperator.views
     /// <summary>
     /// Логика взаимодействия для DetailingWindow2.xaml
     /// </summary>
-    public partial class DetailingWindow2 : Page
+    public partial class DetailingPage2 : Page
     {
-        public DetailingWindow2(int userId, int status, Infrastructure.MobileOperator context)
+        public DetailingPage2(int userId, int status, Infrastructure.MobileOperator context)
         {
             InitializeComponent();
-            DataContext = new DetailingWindow2ViewModel(userId, status, context);
+            DataContext = new DetailingPage2ViewModel(userId, status, context);
         }
     }
 }

@@ -35,19 +35,19 @@ namespace MobileOperator.views
         {
             if (MainTabControl.SelectedIndex == 1 && ServicesFrame.Content == null)
             {
-                ServicesFrame.Navigate(new ServicesWindow(_userId, _status, _context));
+                ServicesFrame.Navigate(new ServicesPage(_userId, _status, _context));
             }
             else if (MainTabControl.SelectedIndex == 2 && RatesFrame.Content == null)
             {
-                RatesFrame.Navigate(new RatesWindow(_userId, _status, _context));
+                RatesFrame.Navigate(new RatesPage(_userId, _status, _context));
             }
             else if (MainTabControl.SelectedIndex == 3 && DetailingFrame.Content == null)
             {
-                DetailingFrame.Navigate(new DetailingWindow(_userId, _status, _context));
+                DetailingFrame.Navigate(new DetailingPage(_userId, _status, _context));
             }
             else if (MainTabControl.SelectedIndex == 4 && Detailing2Frame.Content == null)
             {
-                Detailing2Frame.Navigate(new DetailingWindow2(_userId, _status, _context));
+                Detailing2Frame.Navigate(new DetailingPage2(_userId, _status, _context));
             }
             else if (MainTabControl.SelectedIndex == 5 && WriteOffsFrame.Content == null)
             {

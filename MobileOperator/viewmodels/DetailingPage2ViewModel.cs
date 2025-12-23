@@ -12,7 +12,7 @@ using Word = Microsoft.Office.Interop.Word;
 
 namespace MobileOperator.viewmodels
 {
-    class DetailingWindow2ViewModel : INotifyPropertyChanged
+    class DetailingPage2ViewModel : INotifyPropertyChanged
     {
         private int userId, status;
         private ClientModel client;
@@ -24,7 +24,7 @@ namespace MobileOperator.viewmodels
         public ObservableCollection<RateHistoryModel> Rates { get; set; }
         public ObservableCollection<ServiceHistoryModel> Services { get; set; }
 
-        public DetailingWindow2ViewModel(int userId, int status, Infrastructure.MobileOperator context)
+        public DetailingPage2ViewModel(int userId, int status, Infrastructure.MobileOperator context)
         {
             this.userId = userId;
             this.status = status;
